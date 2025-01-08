@@ -9,7 +9,7 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
-    private String login;
+    private String email;
     private String password;
     private String picture;
 
@@ -20,9 +20,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    public User(String name, String login, String password, String picture, Rol rol) {
+    public User(String name, String email, String password, String picture, Rol rol) {
         this.name = name;
-        this.login = login;
+        this.email = email;
         this.password = password;
         this.picture = (picture == null || picture.isEmpty()) ? "default image":picture;
         this.rol = rol;
@@ -47,12 +47,12 @@ public class User {
         this.name = name;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
