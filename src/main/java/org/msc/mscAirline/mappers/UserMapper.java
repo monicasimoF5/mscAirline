@@ -1,11 +1,12 @@
 package org.msc.mscAirline.mappers;
 
+import jakarta.validation.Valid;
 import org.msc.mscAirline.dtos.UserRequest;
 import org.msc.mscAirline.dtos.UserResponse;
 import org.msc.mscAirline.entities.User;
 
 public class UserMapper {
-    public static User toEntity(UserRequest userRequest, User user){
+    public static User toEntity(@Valid UserRequest userRequest){
         return new User(
                 userRequest.name(),
                 userRequest.email(),
@@ -25,4 +26,5 @@ public class UserMapper {
                 user.getRol()
         );
     }
+
 }
