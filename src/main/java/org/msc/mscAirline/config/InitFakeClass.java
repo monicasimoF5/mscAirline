@@ -1,7 +1,7 @@
 package org.msc.mscAirline.config;
 
-import org.msc.mscAirline.entities.User;
-import org.msc.mscAirline.repositories.UserRepository;
+import org.msc.mscAirline.entities.Passenger;
+import org.msc.mscAirline.repositories.PassengerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +12,12 @@ import java.util.List;
 public class InitFakeClass {
 
     @Bean
-    public CommandLineRunner initUserData (UserRepository userRepository){
+    public CommandLineRunner initUserData (PassengerRepository userRepository){
         return args -> {
             if (userRepository.count() == 0){
-                List<User> userList = List.of(
-                        new User("user1","email1@mscairline.com","@User1","picture1", User.Rol.ROLE_USER),
-                        new User("user2","email2@mscairline.com","@User2","picture2", User.Rol.ROLE_USER)
+                List<Passenger> userList = List.of(
+                        new Passenger("passenger1","passenger1@mscairline.com","@Pass1","picture1", Passenger.Rol.ROLE_USER),
+                        new Passenger("passenger2","passenger2@mscairline.com","@Pass2","picture2", Passenger.Rol.ROLE_ADMIN)
                 );
                 userRepository.saveAll(userList);
             }

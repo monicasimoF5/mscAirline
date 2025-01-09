@@ -8,6 +8,6 @@ public class MscAirlineApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MscAirlineApplication.class, args);
+		System.out.println("Welcome to MSC Airline...");
 	}
-
 }

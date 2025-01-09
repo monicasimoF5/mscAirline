@@ -1,9 +1,9 @@
 package org.msc.mscAirline.dtos;
 
 import jakarta.validation.constraints.*;
-import org.msc.mscAirline.entities.User;
+import org.msc.mscAirline.entities.Passenger;
 
-public record UserRequest (
+public record PassengerRequest(
 
         @NotNull
         @NotEmpty
@@ -20,6 +20,6 @@ public record UserRequest (
 
         String picture,
 
-        User.Rol rol
+        Passenger.Rol rol
 ) {
 }

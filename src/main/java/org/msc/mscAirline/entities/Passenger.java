@@ -3,7 +3,7 @@ package org.msc.mscAirline.entities;
 import jakarta.persistence.*;
 
 @Entity
-public class User {
+public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -20,7 +20,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    public User(String name, String email, String password, String picture, Rol rol) {
+    public Passenger(String name, String email, String password, String picture, Rol rol) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -28,7 +28,7 @@ public class User {
         this.rol = rol;
     }
 
-    public User() {
+    public Passenger() {
     }
 
     public Long getId() {
