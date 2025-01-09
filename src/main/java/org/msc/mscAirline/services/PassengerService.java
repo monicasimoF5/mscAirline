@@ -10,6 +10,7 @@ import org.msc.mscAirline.repositories.PassengerRepository;
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +43,20 @@ public class PassengerService {
         return PassengerMapper.toResponse(passenger);
     }
 
+    public List<PassengerResponse> findAll (){
+        List<Passenger> passengerList = passengerRepository.findAll();
+        return passengerList.stream()
+                .map(PassengerMapper::toResponse).toList();
+    }
 
+
+    public List<PassengerResponse> findByEmailIgnoreCaseContaining(String email) {
+        List<Passenger> passengerList = passengerRepository.findByEmailIgnoreCaseContaining(email);
+
+        if (passengerList.isEmpty()){
+            throw new AirlineNotFoundException("The passenger with email " + email + " does not exist.");
+        }
+        return passengerList.stream()
+                .map(PassengerMapper::toResponse).toList();
+    }
 }
