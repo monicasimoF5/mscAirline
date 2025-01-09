@@ -7,10 +7,7 @@ import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
 import org.msc.mscAirline.services.PassengerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/passengers")
@@ -26,6 +23,12 @@ public class PassengerController {
     public ResponseEntity<PassengerResponse> createPassenger(@RequestBody @Valid PassengerRequest passengerRequest) throws AirlineAlreadyExistsException {
         PassengerResponse user = (PassengerResponse) passengerService.createPassenger(passengerRequest);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PassengerResponse> getPassengerById(@PathVariable Long id){
+        PassengerResponse passengerResponse = passengerService.findById(id);
+        return new ResponseEntity<>(passengerResponse, HttpStatus.OK);
     }
 
 }
