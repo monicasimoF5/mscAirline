@@ -1,7 +1,8 @@
-package org.msc.mscAirline.Profile;
+package org.msc.mscAirline.profiles;
 
 import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
+import org.msc.mscAirline.users.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +17,12 @@ public class ProfileService {
         this.profileRepository = profileRepository;
     }
 
-    public Object createProfile(ProfileRequest profileRequest) throws AirlineAlreadyExistsException {
+    public Object createProfile(ProfileRequest profileRequest, User user) throws AirlineAlreadyExistsException {
         Optional<Profile> findProfile = profileRepository.findByEmail(profileRequest.email());
         if (findProfile.isPresent())
             throw new AirlineAlreadyExistsException("Profile already exist with this email.");
 
-        Profile profile = ProfileMapper.toEntity(profileRequest);
+        Profile profile = ProfileMapper.toEntity(profileRequest, user);
         Profile savedProfile = profileRepository.save(profile);
         return ProfileMapper.toResponse(savedProfile);
     }

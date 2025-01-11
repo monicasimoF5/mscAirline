@@ -1,7 +1,7 @@
-package org.msc.mscAirline.config;
+/*package org.msc.mscAirline.config;
 
-import org.msc.mscAirline.Profile.Profile;
-import org.msc.mscAirline.Profile.ProfileRepository;
+import org.msc.mscAirline.profiles.Profile;
+import org.msc.mscAirline.profiles.ProfileRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,4 +23,4 @@ public class InitFakeClass {
             }
         };
     }
-}
+}*/

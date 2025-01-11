@@ -1,15 +1,16 @@
-package org.msc.mscAirline.Profile;
+package org.msc.mscAirline.profiles;
 
 import jakarta.validation.Valid;
+import org.msc.mscAirline.users.User;
 
 public class ProfileMapper {
-    public static Profile toEntity(@Valid ProfileRequest profileRequest){
+    public static Profile toEntity(@Valid ProfileRequest profileRequest, User user){
         return new Profile(
                 profileRequest.name(),
+                profileRequest.phone(),
                 profileRequest.email(),
-                profileRequest.password(),
                 profileRequest.picture(),
-                profileRequest.rol()
+                user
         );
     }
 
@@ -17,10 +18,9 @@ public class ProfileMapper {
         return new ProfileResponse(
                 profile.getId(),
                 profile.getName(),
-                profile.getEmail(),
-                profile.getPassword(),
+                profile.getPhone(),
                 profile.getPicture(),
-                profile.getRol()
+                profile.getUser()
         );
     }
 

@@ -1,8 +1,9 @@
-package org.msc.mscAirline.Profile;
+package org.msc.mscAirline.profiles;
 
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
+import org.msc.mscAirline.users.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +21,10 @@ public class ProfileController {
     }
 
     @PostMapping
-    public ResponseEntity<ProfileResponse> createProfile(@RequestBody @Valid ProfileRequest profileRequest) throws AirlineAlreadyExistsException {
-        ProfileResponse user = (ProfileResponse) profileService.createProfile(profileRequest);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    public ResponseEntity<ProfileResponse> createProfile(@RequestBody @Valid ProfileRequest profileRequest, User user) throws AirlineAlreadyExistsException {
+        ProfileResponse profile = (ProfileResponse) profileService.createProfile(profileRequest, user);
+        return new ResponseEntity<>(profile
+                , HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")

@@ -1,4 +1,4 @@
-package org.msc.mscAirline.Profile;
+package org.msc.mscAirline.profiles;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
