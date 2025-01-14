@@ -3,10 +3,10 @@ package org.msc.mscAirline.airports;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/airports")
@@ -22,4 +22,21 @@ public class AirportController {
         AirportResponse airportResponse = airportService.createAirport(airportRequest);
         return new ResponseEntity<>(airportResponse, HttpStatus.CREATED);
     }
+
+    @GetMapping()
+    public ResponseEntity<List<AirportResponse>> getAllAirports(){
+        List<AirportResponse> allAirports = airportService.findAll();
+        return new ResponseEntity<>(allAirports, HttpStatus.OK);
+    }
+
+    @GetMapping("/{name}")
+    public List<AirportResponse> getAirportByIdOrName(@PathVariable String name){
+        try{
+            Long id = Long.parseLong(name);
+            return Collections.singletonList(airportService.findById(id));
+        } catch (NumberFormatException e) {
+            return airportService.findByName(name);
+        }
+    }
+
 }
