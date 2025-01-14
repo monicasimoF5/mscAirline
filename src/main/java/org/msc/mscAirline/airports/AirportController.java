@@ -39,4 +39,16 @@ public class AirportController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<AirportResponse> updateAirport(@PathVariable Long id, @RequestBody @Valid AirportRequest airportRequest){
+        AirportResponse airportResponse = airportService.updateAirportById(id, airportRequest);
+        return new ResponseEntity<>(airportResponse, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAirport(@PathVariable Long id){
+        airportService.deleteAirportById(id);
+        return new ResponseEntity<>("The airport has been eliminated", HttpStatus.OK);
+    }
+
 }

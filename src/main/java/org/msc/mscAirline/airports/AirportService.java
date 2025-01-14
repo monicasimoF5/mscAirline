@@ -53,5 +53,29 @@ public class AirportService {
                 .map(AirportMapper::toResponse).toList();
     }
 
+    public AirportResponse updateAirportById(Long id, AirportRequest airportRequest){
+        Optional<Airport> optionalAirport = airportRepository.findById(id);
+
+        if (optionalAirport.isPresent()){
+            Airport airport = optionalAirport.get();
+
+            airport.setName(airportRequest.name());
+            airport.setCity(airportRequest.city());
+            airport.setCountry(airportRequest.country());
+
+            Airport updateAirport = airportRepository.save(airport);
+            return AirportMapper.toResponse(updateAirport);
+        }
+        throw new AirlineNotFoundException("The airport with id " + id + " does not exist.");
+    }
+
+    public void deleteAirportById(Long id){
+        Optional<Airport> optionalAirport = airportRepository.findById(id);
+
+        if (optionalAirport.isEmpty()){
+            throw new AirlineNotFoundException("The airport with id " + id + " does not exist.");
+        }
+        airportRepository.deleteById(id);
+    }
 
 }
