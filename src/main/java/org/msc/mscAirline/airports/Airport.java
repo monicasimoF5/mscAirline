@@ -1,12 +1,8 @@
 package org.msc.mscAirline.airports;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 @Entity
-@Builder
 public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +16,6 @@ public class Airport {
     }
 
     public Airport(String name, String city, String country) {
-        this.name = name;
-        this.city = city;
-        this.country = country;
-    }
-
-    public Airport(Long id, String name, String city, String country) {
-        this.id = id;
         this.name = name;
         this.city = city;
         this.country = country;

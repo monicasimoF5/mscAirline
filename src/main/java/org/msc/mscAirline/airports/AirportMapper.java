@@ -9,7 +9,7 @@ public class AirportMapper {
         );
     }
 
-    public static Airport toResponse(Airport airport){
+    public static AirportResponse toResponse(Airport airport){
         return new AirportResponse(
                 airport.getId(),
                 airport.getName(),
