@@ -1,6 +1,8 @@
 package org.msc.mscAirline.flights;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.msc.mscAirline.airports.Airport;
 
 import java.sql.Date;
@@ -41,7 +43,7 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    public Flight() {
+    public Flight(@NotNull(message = "The origin can not be null.") @NotEmpty(message = "The origin can not be empty.") Airport origin, @NotNull(message = "The destination can not be null.") @NotEmpty(message = "The destination can not be empty.") Airport destination, @NotNull(message = "The available seats can not be null.") int availableSeats, java.util.Date date, java.util.Date arrivalTime) {
     }
 
     public Long getId() {
