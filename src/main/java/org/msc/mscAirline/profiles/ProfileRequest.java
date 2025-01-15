@@ -18,10 +18,10 @@ public record ProfileRequest(
         @Email(message = "The email must be a correctly formatted address.")
         String email,
 
-        String picture,
+        String picture/*,
 
         @NotNull(message = "The guardian ID cannot be null")
-        Long userId
+        Long userId*/
 
 ) {
 

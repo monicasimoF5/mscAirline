@@ -6,7 +6,7 @@ public record ProfileResponse(
         Long id,
         String name,
         String phone,
-        String picture,
-        User user
+        String picture/*,
+        User user*/
 ) {
 }

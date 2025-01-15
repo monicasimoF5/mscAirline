@@ -14,16 +14,16 @@ public class Profile {
     private String email;
     private String picture;
 
-    @OneToOne
+    /*@OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id_user")
-    private User user;
+    private User user;*/
 
-    public Profile(String name, String phone, String email, String picture, User user) {
+    public Profile(String name, String phone, String email, String picture/*, User user*/) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.picture = picture;
-        this.user = user;
+        /*this.user = user;*/
     }
 
     public Profile() {
@@ -61,11 +61,11 @@ public class Profile {
         this.picture = picture;
     }
 
-    public User getUser() {
+    /*public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
 }

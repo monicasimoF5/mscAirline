@@ -17,17 +17,17 @@ public class User {
     private String username;
     private String password;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Profile profile;
+    /*@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Profile profile;*/
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "roles_users", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     Set<Role> roles;
 
-    public User(String username, String password, Profile profile) {
+    public User(String username, String password/*, Profile profile*/) {
         this.username = username;
         this.password = password;
-        this.profile = profile;
+        /*this.profile = profile;*/
     }
 
     public User() {
@@ -57,13 +57,13 @@ public class User {
         this.password = password;
     }
 
-    public Profile getProfile() {
+    /*public Profile getProfile() {
         return profile;
     }
 
     public void setProfile(Profile profile) {
         this.profile = profile;
-    }
+    }*/
 
     public Set<Role> getRoles() {
         return roles;

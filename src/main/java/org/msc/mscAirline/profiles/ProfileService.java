@@ -22,7 +22,7 @@ public class ProfileService {
         if (findProfile.isPresent())
             throw new AirlineAlreadyExistsException("Profile already exist with this email.");
 
-        Profile profile = ProfileMapper.toEntity(profileRequest, user);
+        Profile profile = ProfileMapper.toEntity(profileRequest/*, user*/);
         Profile savedProfile = profileRepository.save(profile);
         return ProfileMapper.toResponse(savedProfile);
     }
