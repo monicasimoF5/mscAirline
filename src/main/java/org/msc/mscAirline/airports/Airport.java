@@ -7,7 +7,7 @@ public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Long airportId;
     private String name;
     private String city;
     private String country;
@@ -21,12 +21,12 @@ public class Airport {
         this.country = country;
     }
 
-    public Long getId() {
-        return id;
+    public Long getAirportId() {
+        return airportId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAirportId(Long airportId) {
+        this.airportId = airportId;
     }
 
     public String getName() {

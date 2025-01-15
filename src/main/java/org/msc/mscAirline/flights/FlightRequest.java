@@ -2,19 +2,20 @@ package org.msc.mscAirline.flights;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.msc.mscAirline.airports.Airport;
 
 import java.util.Date;
 
 public record FlightRequest(
 
+        @NotNull(message = "The flight name can not be null.")
+        @NotEmpty(message = "The flight name can not be empty.")
+        String flightName,
+
         @NotNull(message = "The origin can not be null.")
-        @NotEmpty(message = "The origin can not be empty.")
-        Airport origin,
+        Long originId,
 
         @NotNull(message = "The destination can not be null.")
-        @NotEmpty(message = "The destination can not be empty.")
-        Airport destination,
+        Long destinationId,
 
         @NotNull(message = "The available seats can not be null.")
         int availableSeats,

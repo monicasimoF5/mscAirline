@@ -1,18 +1,26 @@
 package org.msc.mscAirline.flights;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import lombok.*;
 import org.msc.mscAirline.airports.Airport;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(nullable = false)
+    private Long fightId;
+    private String flightName;
+    private int availableSeats;
+    private Date departureTime;
+    private Date arrivalTime;
 
     @OneToOne
     @JoinColumn(name = "origin_id")
@@ -20,13 +28,10 @@ public class Flight {
 
     @OneToOne
     @JoinColumn(name = "destination_id")
-    private Airport destination;
+    Airport destination;
 
-    private int availableSeats;
-    private Date departureTime;
-    private Date arrivalTime;
-
-    public Flight(Airport origin, Airport destination, int availableSeats, Date departureTime, Date arrivalTime) {
+    public Flight(String flightName, Airport origin, Airport destination, int availableSeats, Date departureTime, Date arrivalTime) {
+        this.flightName = flightName;
         this.origin = origin;
         this.destination = destination;
         this.availableSeats = availableSeats;
@@ -34,8 +39,9 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    public Flight(Long id, Airport origin, Airport destination, int availableSeats, Date departureTime, Date arrivalTime) {
-        this.id = id;
+    public Flight(Long fightId, String flightName, Airport origin, Airport destination, int availableSeats, Date departureTime, Date arrivalTime) {
+        this.fightId = fightId;
+        this.flightName = flightName;
         this.origin = origin;
         this.destination = destination;
         this.availableSeats = availableSeats;
@@ -43,15 +49,23 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
-    public Flight(@NotNull(message = "The origin can not be null.") @NotEmpty(message = "The origin can not be empty.") Airport origin, @NotNull(message = "The destination can not be null.") @NotEmpty(message = "The destination can not be empty.") Airport destination, @NotNull(message = "The available seats can not be null.") int availableSeats, java.util.Date date, java.util.Date arrivalTime) {
+    public Flight() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getFightId() {
+        return fightId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFightId(Long fightId) {
+        this.fightId = fightId;
+    }
+
+    public String getFlightName() {
+        return flightName;
+    }
+
+    public void setFlightName(String flightName) {
+        this.flightName = flightName;
     }
 
     public Airport getOrigin() {

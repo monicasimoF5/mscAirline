@@ -1,7 +1,7 @@
 package org.msc.mscAirline.airports;
 
 public record AirportResponse(
-        Long id,
+        Long airportId,
         String name,
         String city,
         String country

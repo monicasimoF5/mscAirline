@@ -1,12 +1,15 @@
 package org.msc.mscAirline.flights;
 
 
+import org.msc.mscAirline.airports.Airport;
+import org.msc.mscAirline.airports.AirportMapper;
 
 public class FlightMapper {
-    public static Flight toEntity(FlightRequest flightRequest) {
+    public static Flight toEntity(FlightRequest flightRequest, Airport airportOrigin, Airport airportDestination) {
         return new Flight(
-                flightRequest.origin(),
-                flightRequest.destination(),
+                flightRequest.flightName(),
+                airportOrigin,
+                airportDestination,
                 flightRequest.availableSeats(),
                 flightRequest.departureTime(),
                 flightRequest.arrivalTime()
@@ -15,9 +18,10 @@ public class FlightMapper {
 
     public static FlightResponse toResponse(Flight flight) {
         return new FlightResponse(
-                flight.getId(),
-                flight.getOrigin(),
-                flight.getDestination(),
+                flight.getFightId(),
+                flight.getFlightName(),
+                AirportMapper.toResponse(flight.getOrigin()),
+                AirportMapper.toResponse(flight.getDestination()),
                 flight.getAvailableSeats(),
                 flight.getDepartureTime(),
                 flight.getArrivalTime()

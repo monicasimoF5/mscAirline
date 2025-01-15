@@ -11,7 +11,7 @@ public class AirportMapper {
 
     public static AirportResponse toResponse(Airport airport){
         return new AirportResponse(
-                airport.getId(),
+                airport.getAirportId(),
                 airport.getName(),
                 airport.getCity(),
                 airport.getCountry()
