@@ -20,7 +20,7 @@ public class Role {
     private String name;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(mappedBy = "roles")
     Set<User> users;
 
 }
