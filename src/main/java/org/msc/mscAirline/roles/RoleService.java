@@ -2,7 +2,7 @@ package org.msc.mscAirline.roles;
 
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.RoleNotFoundException;
+import org.msc.mscAirline.roles.exceptions.RoleNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
