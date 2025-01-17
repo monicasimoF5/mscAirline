@@ -4,13 +4,13 @@ import jakarta.validation.Valid;
 import org.msc.mscAirline.users.User;
 
 public class ProfileMapper {
-    public static Profile toEntity(@Valid ProfileRequest profileRequest/*, User user*/){
+    public static Profile toEntity(@Valid ProfileRequest profileRequest, User user){
         return new Profile(
                 profileRequest.name(),
                 profileRequest.phone(),
                 profileRequest.email(),
-                profileRequest.picture()/*,
-                user*/
+                profileRequest.picture(),
+                user
         );
     }
 
@@ -19,8 +19,8 @@ public class ProfileMapper {
                 profile.getId(),
                 profile.getName(),
                 profile.getPhone(),
-                profile.getPicture()/*,
-                profile.getUser()*/
+                profile.getPicture(),
+                profile.getUser()
         );
     }
 
