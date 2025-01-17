@@ -1,6 +1,6 @@
 /* Roles */
 /*INSERT INTO roles (id_role, name) VALUES (default, 'ROLE_USER');
-INSERT INTO roles (id_role, name) VALUES (default, 'ROLE_ADMIN');
+/*INSERT INTO roles (id_role, name) VALUES (default, 'ROLE_ADMIN');
 
 /* Users */
 /*INSERT INTO users (id_user, username, password) VALUES (default, 'pepe', '$2a$12$8LegtLQWe717tIPvZeivjuqKnaAs5.bm0Q05.5GrAmcKzXw2NjoUO');
