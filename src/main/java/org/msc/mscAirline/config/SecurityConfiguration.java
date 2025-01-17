@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +30,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
 
         httpSecurity
-                .cors(Customizer.withDefaults())
+                .cors(withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form.disable())
                 .logout(out -> out
@@ -43,10 +44,11 @@ public class SecurityConfiguration {
                         .requestMatchers(endpoint + "/login").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(endpoint + "/public").permitAll()
                         .requestMatchers(endpoint + "/private").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, endpoint + "/profiles").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, endpoint + "/airports").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .userDetailsService(jpaUserDetailService)
-                .httpBasic(Customizer.withDefaults())
+                .httpBasic(withDefaults())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
