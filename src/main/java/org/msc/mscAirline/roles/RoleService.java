@@ -21,7 +21,7 @@ public class RoleService {
     }
 
     public Set<Role> assignDefaultRole(Long id) throws RoleNotFoundException {
-        Role defaultRole = roleRepository.findById(id).orElseThrow(() -> new RoleNotFoundException("Role not found.")); //Pdte de revisión
+        Role defaultRole = this.getById(1L);//Pdte de revisar
 
         Set<Role> roles = new HashSet<>();
         roles.add(defaultRole);
