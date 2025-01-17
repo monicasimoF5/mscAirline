@@ -17,7 +17,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Value("${api-endpoints}")
+    @Value("${api-endpoint}")
     String endpoint;
 
     private JpaUserDetailService jpaUserDetailService;
