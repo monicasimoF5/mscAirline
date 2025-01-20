@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 import org.msc.mscAirline.users.User;
 
 @Entity
+@Table(name = "profiles")
 public class Profile {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_profile", nullable = false)
     private Long id;
     private String name;
     private String phone;

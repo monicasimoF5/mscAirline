@@ -42,10 +42,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
                         .requestMatchers(endpoint).permitAll()
-                        .requestMatchers(HttpMethod.POST, endpoint + "register").permitAll()
+                        .requestMatchers(HttpMethod.POST, endpoint + "/register").permitAll()
                         .requestMatchers(endpoint + "/login").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(endpoint + "/public").permitAll()
-                        .requestMatchers(endpoint + "/private").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, endpoint + "/profiles").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, endpoint + "/profiles").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, endpoint + "/airports").hasRole("ADMIN")

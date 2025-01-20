@@ -3,6 +3,8 @@ package org.msc.mscAirline.roles;
 import org.springframework.stereotype.Service;
 
 import org.msc.mscAirline.roles.exceptions.RoleNotFoundException;
+
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,13 +22,11 @@ public class RoleService {
         return role;
     }
 
-    public Set<Role> assignDefaultRole(Long id) throws RoleNotFoundException {
-        Role defaultRole = this.getById(1L);//Pdte de revisar
+    public Set<Role> assignDefaultRole(Long userId) throws RoleNotFoundException {
+        Role defaultRole = roleRepository.findByName("ROLE_USER")
+                .orElseThrow(() -> new RoleNotFoundException("Default role (ROLE_USER) not found."));
 
-        Set<Role> roles = new HashSet<>();
-        roles.add(defaultRole);
-
-        return roles;
+        return Collections.singleton(defaultRole);
     }
 
 }

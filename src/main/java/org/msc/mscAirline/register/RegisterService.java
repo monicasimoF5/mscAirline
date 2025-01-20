@@ -1,5 +1,6 @@
 package org.msc.mscAirline.register;
 
+import org.msc.mscAirline.roles.Role;
 import org.msc.mscAirline.roles.RoleService;
 import org.msc.mscAirline.users.User;
 import org.msc.mscAirline.users.UserRequest;
@@ -11,6 +12,7 @@ import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class RegisterService {
@@ -24,15 +26,17 @@ public class RegisterService {
     }
 
     public Map<String, String> save(UserRequest userRequest){
-        Decoder decoder = Base64.getDecoder();
+        /*Decoder decoder = Base64.getDecoder();
         byte[] decodedBytes = decoder.decode(userRequest.password());
         String passwordDecoded = new String(decodedBytes);
 
+        System.out.println("----" + passwordDecoded + "----");*/
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String passwordEncoded = encoder.encode(passwordDecoded);
+        String passwordEncoded = encoder.encode(userRequest.password());
 
         User newUser = new User(userRequest.username(), passwordEncoded);
-        newUser.setRoles(roleService.assignDefaultRole(1L)); //Pdte de revisar
+        newUser.setRoles(roleService.assignDefaultRole(newUser.getId()));
 
         userRepository.save(newUser);
 

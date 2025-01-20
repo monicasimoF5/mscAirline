@@ -21,9 +21,13 @@ public class SecurityUser implements UserDetails {
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
         for (Role role : user.getRoles()){
+
             System.out.println("User role: " + role.getName());
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority((role.getName()));
+            authorities.add(authority);
         }
+
+        System.out.println(authorities.size());
 
         return authorities;
     }
