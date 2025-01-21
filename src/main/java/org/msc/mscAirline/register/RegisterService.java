@@ -26,14 +26,13 @@ public class RegisterService {
     }
 
     public Map<String, String> save(UserRequest userRequest){
-        /*Decoder decoder = Base64.getDecoder();
+
+        Decoder decoder = Base64.getDecoder();
         byte[] decodedBytes = decoder.decode(userRequest.password());
         String passwordDecoded = new String(decodedBytes);
 
-        System.out.println("----" + passwordDecoded + "----");*/
-
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String passwordEncoded = encoder.encode(userRequest.password());
+        String passwordEncoded = encoder.encode(passwordDecoded);
 
         User newUser = new User(userRequest.username(), passwordEncoded);
         newUser.setRoles(roleService.assignDefaultRole(newUser.getId()));

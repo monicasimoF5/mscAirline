@@ -18,6 +18,7 @@ public class AuthenticationController {
 
     @GetMapping(path = "/login")
     public ResponseEntity<Map<String, String>> login(){
+
         SecurityContext contextHolder = SecurityContextHolder.getContext();
         Authentication authentication = contextHolder.getAuthentication();
 
