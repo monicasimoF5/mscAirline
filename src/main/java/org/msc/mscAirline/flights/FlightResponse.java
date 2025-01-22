@@ -6,7 +6,7 @@ import org.msc.mscAirline.airports.AirportResponse;
 import java.util.Date;
 
 public record FlightResponse(
-        Long fightId,
+        Long flightId,
         String flightName,
         AirportResponse origin,
         AirportResponse destination,

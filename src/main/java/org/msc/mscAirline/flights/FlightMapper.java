@@ -18,7 +18,7 @@ public class FlightMapper {
 
     public static FlightResponse toResponse(Flight flight) {
         return new FlightResponse(
-                flight.getFightId(),
+                flight.getFlightId(),
                 flight.getFlightName(),
                 AirportMapper.toResponse(flight.getOrigin()),
                 AirportMapper.toResponse(flight.getDestination()),
