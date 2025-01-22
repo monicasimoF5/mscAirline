@@ -1,6 +1,8 @@
 package org.msc.mscAirline.airports;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Airport {
@@ -16,6 +18,26 @@ public class Airport {
     }
 
     public Airport(String name, String city, String country) {
+        this.name = name;
+        this.city = city;
+        this.country = country;
+    }
+
+    public Airport(
+            long airportId,
+
+            @NotNull(message = "The name cannot be null.")
+            @NotEmpty(message = "The name cannot be empty.")
+            String name,
+
+            @NotNull(message = "The city cannot be null.")
+            @NotEmpty(message = "The city cannot be empty.")
+            String city,
+
+            @NotNull(message = "The country cannot be null.")
+            @NotEmpty(message = "The country cannot be empty.")
+            String country) {
+        this.airportId = airportId;
         this.name = name;
         this.city = city;
         this.country = country;

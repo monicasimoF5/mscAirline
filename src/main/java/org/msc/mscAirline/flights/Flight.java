@@ -9,7 +9,6 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Flight {
@@ -31,16 +30,6 @@ public class Flight {
     Airport destination;
 
     public Flight(String flightName, Airport origin, Airport destination, int availableSeats, Date departureTime, Date arrivalTime) {
-        this.flightName = flightName;
-        this.origin = origin;
-        this.destination = destination;
-        this.availableSeats = availableSeats;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-    }
-
-    public Flight(Long flightId, String flightName, Airport origin, Airport destination, int availableSeats, Date departureTime, Date arrivalTime) {
-        this.flightId = flightId;
         this.flightName = flightName;
         this.origin = origin;
         this.destination = destination;
