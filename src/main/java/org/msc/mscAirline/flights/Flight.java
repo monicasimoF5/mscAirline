@@ -16,7 +16,7 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long flightId;
-    private String flightName;
+    private String name;
     private int availableSeats;
     private Date departureTime;
     private Date arrivalTime;
@@ -29,8 +29,8 @@ public class Flight {
     @JoinColumn(name = "destination_id")
     Airport destination;
 
-    public Flight(String flightName, Airport origin, Airport destination, int availableSeats, Date departureTime, Date arrivalTime) {
-        this.flightName = flightName;
+    public Flight(String name, Airport origin, Airport destination, int availableSeats, Date departureTime, Date arrivalTime) {
+        this.name = name;
         this.origin = origin;
         this.destination = destination;
         this.availableSeats = availableSeats;
@@ -49,12 +49,12 @@ public class Flight {
         this.flightId = flightId;
     }
 
-    public String getFlightName() {
-        return flightName;
+    public String getName() {
+        return name;
     }
 
-    public void setFlightName(String flightName) {
-        this.flightName = flightName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Airport getOrigin() {

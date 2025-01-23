@@ -7,7 +7,7 @@ import org.msc.mscAirline.airports.AirportMapper;
 public class FlightMapper {
     public static Flight toEntity(FlightRequest flightRequest, Airport airportOrigin, Airport airportDestination) {
         return new Flight(
-                flightRequest.flightName(),
+                flightRequest.name(),
                 airportOrigin,
                 airportDestination,
                 flightRequest.availableSeats(),
@@ -19,7 +19,7 @@ public class FlightMapper {
     public static FlightResponse toResponse(Flight flight) {
         return new FlightResponse(
                 flight.getFlightId(),
-                flight.getFlightName(),
+                flight.getName(),
                 AirportMapper.toResponse(flight.getOrigin()),
                 AirportMapper.toResponse(flight.getDestination()),
                 flight.getAvailableSeats(),

@@ -7,7 +7,7 @@ import java.util.Date;
 
 public record FlightResponse(
         Long flightId,
-        String flightName,
+        String name,
         AirportResponse origin,
         AirportResponse destination,
         int availableSeats,

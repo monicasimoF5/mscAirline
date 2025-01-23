@@ -27,8 +27,6 @@ public class SecurityUser implements UserDetails {
             authorities.add(authority);
         }
 
-        System.out.println(authorities.size());
-
         return authorities;
     }
 

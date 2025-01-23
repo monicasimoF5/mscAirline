@@ -56,7 +56,7 @@ public class SecurityConfiguration {
                 .userDetailsService(jpaUserDetailService)
                 .httpBasic(withDefaults())
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
 
         httpSecurity.headers(header -> header.frameOptions(frame -> frame.sameOrigin()));
 

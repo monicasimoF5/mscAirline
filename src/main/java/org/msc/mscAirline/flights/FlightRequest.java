@@ -9,7 +9,7 @@ public record FlightRequest(
 
         @NotNull(message = "The flight name can not be null.")
         @NotEmpty(message = "The flight name can not be empty.")
-        String flightName,
+        String name,
 
         @NotNull(message = "The origin can not be null.")
         Long originId,
