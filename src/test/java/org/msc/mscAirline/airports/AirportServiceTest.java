@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
 @Sql(scripts = "/sql/cleanup.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "/sql/data.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @ExtendWith(MockitoExtension.class)
 class AirportServiceTest {
 
