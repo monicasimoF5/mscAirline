@@ -60,4 +60,30 @@ class AirportServiceTest {
         assertEquals(responses.get(0).name(), airports.get(0).getName());
     }
 
+    @Test
+    public void testFindAirportById_Success() {
+
+        Long airportId = 1L;
+        Airport airport = new Airport(airportId, "Barajas", "Madrid", "Spain");
+        when(airportRepository.findById(airportId)).thenReturn(Optional.of(airport));
+
+        AirportResponse response = airportService.findById(airportId);
+
+        assertEquals(response.airportId(), airport.getAirportId());
+        assertEquals(response.name(), airport.getName());
+    }
+
+    @Test
+    public void testFindAirportByName_Success() {
+
+        String airportName = "Barajas";
+        Airport airport = new Airport(1L, airportName, "Madrid", "Spain");
+        when(airportRepository.findByName(airportName)).thenReturn(Optional.of(airport));
+
+        List<AirportResponse> responses = airportService.findByName(airportName);
+
+        assertEquals(responses.size(), 1);
+        assertEquals(responses.get(0).name(), airportName);
+    }
+
 }
