@@ -2,7 +2,6 @@ package org.msc.mscAirline.flights;
 
 import org.msc.mscAirline.airports.Airport;
 import org.msc.mscAirline.airports.AirportRepository;
-import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
 import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -36,27 +35,20 @@ public class FlightService {
         return responseList;
     }
 
-    public FlightResponse createFlight(FlightRequest flightRequest){
-        Optional<Flight> existFlight = flightRepository.findByFlightNameAndDestinationAirportId(flightRequest.flightName(), flightRequest.destinationId());
-        if (existFlight.isPresent()){
-            throw new AirlineAlreadyExistsException("The flight " + flightRequest.flightName() + " with destination " + flightRequest.destinationId() + " already exits.");
-        }
+    public Flight createFlight(FlightRequest flightRequest){
 
         Optional<Airport> originAirport = airportRepository.findById(flightRequest.originId());
-        if (originAirport.isEmpty()){
-            throw new AirlineNotFoundException("Origin airport not found.");
+        if (!originAirport.isPresent()){
+            throw new IllegalArgumentException("Origin airport not found.");
         }
 
         Optional<Airport> destinationAirport = airportRepository.findById(flightRequest.destinationId());
-        if (destinationAirport.isEmpty()){
-            throw new AirlineNotFoundException("Destination airport not found.");
+        if (!destinationAirport.isPresent()){
+            throw new IllegalArgumentException("Destination airport not found.");
         }
 
-        Airport origin = originAirport.get();
-        Airport destination = destinationAirport.get();
-        Flight flightToSave = FlightMapper.toEntity(flightRequest, origin, destination);
-        Flight savedFlight = flightRepository.save(flightToSave);
-        return FlightMapper.toResponse(savedFlight);
+        Flight flight = FlightMapper.toEntity(flightRequest, originAirport.get(), destinationAirport.get());
+        return flightRepository.save(flight);
     }
 
     public FlightResponse findFlightById(Long id) {

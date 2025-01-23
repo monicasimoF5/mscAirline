@@ -30,9 +30,10 @@ public class FlightController {
     }
 
     @PostMapping
-    public ResponseEntity<FlightResponse> createFlight(@RequestBody @Valid FlightRequest flightRequest){
-        FlightResponse flight = flightService.createFlight(flightRequest);
+    public ResponseEntity<Flight> createFlight(@RequestBody @Valid FlightRequest flightRequest){
+        Flight flight = flightService.createFlight(flightRequest);
         return new ResponseEntity<>(flight, HttpStatus.CREATED);
     }
 
 }
+

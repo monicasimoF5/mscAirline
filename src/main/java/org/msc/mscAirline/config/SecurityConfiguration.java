@@ -49,7 +49,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, endpoint + "/airports").hasAnyRole("USER","ADMIN")
                         .requestMatchers(HttpMethod.POST, endpoint + "/airports").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, endpoint + "/airports").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, endpoint + "/flights").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, endpoint + "/flights").hasAnyRole("USER","ADMIN")
                         .requestMatchers(HttpMethod.POST, endpoint + "/flights").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, endpoint + "/flights").hasRole("ADMIN")
                         .anyRequest().authenticated())
