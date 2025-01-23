@@ -1,8 +1,8 @@
 package org.msc.mscAirline.flights;
 
 import jakarta.validation.Valid;
-import org.msc.mscAirline.airports.AirportRequest;
-import org.msc.mscAirline.airports.AirportResponse;
+import org.msc.mscAirline.airports.AirportRepository;
+import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +15,11 @@ import java.util.List;
 public class FlightController {
 
     private final FlightService flightService;
+    private final AirportRepository airportRepository;
 
-    public FlightController(FlightService flightService) {
+    public FlightController(FlightService flightService, AirportRepository airportRepository) {
         this.flightService = flightService;
+        this.airportRepository = airportRepository;
     }
 
     @PostMapping
@@ -25,6 +27,7 @@ public class FlightController {
         Flight flight = flightService.createFlight(flightRequest);
         return new ResponseEntity<>(flight, HttpStatus.CREATED);
     }
+
     @GetMapping()
     public ResponseEntity<List<FlightResponse>> getAllFlights(){
         List<FlightResponse> allFlights = flightService.listAllFlights();

@@ -1,10 +1,14 @@
 package org.msc.mscAirline.flights;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.msc.mscAirline.airports.Airport;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Getter
@@ -18,8 +22,14 @@ public class Flight {
     private Long flightId;
     private String name;
     private int availableSeats;
-    private Date departureTime;
-    private Date arrivalTime;
+
+    @Future
+    @NotNull
+    private LocalDateTime departureTime;
+
+    @Future
+    @NotNull
+    private LocalDateTime arrivalTime;
 
     @OneToOne
     @JoinColumn(name = "origin_id")
@@ -29,7 +39,7 @@ public class Flight {
     @JoinColumn(name = "destination_id")
     Airport destination;
 
-    public Flight(String name, Airport origin, Airport destination, int availableSeats, Date departureTime, Date arrivalTime) {
+    public Flight(String name, Airport origin, Airport destination, int availableSeats, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         this.name = name;
         this.origin = origin;
         this.destination = destination;
@@ -81,19 +91,19 @@ public class Flight {
         this.availableSeats = availableSeats;
     }
 
-    public Date getDepartureTime() {
+    public LocalDateTime getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public Date getArrivalTime() {
+    public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Date arrivalTime) {
+    public void setDepartureTime(LocalDateTime departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 }

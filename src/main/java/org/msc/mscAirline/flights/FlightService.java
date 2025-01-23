@@ -7,6 +7,7 @@ import org.msc.mscAirline.airports.AirportRepository;
 import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +22,18 @@ public class FlightService {
     public FlightService(FlightRepository flightRepository, AirportRepository airportRepository) {
         this.flightRepository = flightRepository;
         this.airportRepository = airportRepository;
+    }
+
+    private void validateFlight(Flight flight) {
+
+        if (flight.getArrivalTime().isBefore(flight.getDepartureTime())) {
+            throw new FlightValidationException("Arrival time cannot be before departure time.");
+        }
+
+        long duration = ChronoUnit.HOURS.between(flight.getDepartureTime(), flight.getArrivalTime());
+        if (duration > 12) {
+            throw new FlightValidationException("Flight duration cannot exceed 12 hours.");
+        }
     }
 
     public List<FlightResponse> listAllFlights() {
@@ -49,7 +62,10 @@ public class FlightService {
             throw new IllegalArgumentException("Destination airport not found.");
         }
 
+
+
         Flight flight = FlightMapper.toEntity(flightRequest, originAirport.get(), destinationAirport.get());
+        validateFlight(flight);
         return flightRepository.save(flight);
     }
 
@@ -85,8 +101,10 @@ public class FlightService {
         flight.setName(flightRequest.name());
         flight.setAvailableSeats(flightRequest.availableSeats());
         flight.setDepartureTime(flightRequest.departureTime());
-        flight.setArrivalTime(flightRequest.arrivalTime());
+        flight.setArrivalTime(flightRequest.departureTime());
         flightRepository.save(flight);
+
+        validateFlight(flight);
 
         return FlightMapper.toResponse(flight);
     }

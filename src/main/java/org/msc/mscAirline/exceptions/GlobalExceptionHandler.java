@@ -1,5 +1,6 @@
 package org.msc.mscAirline.exceptions;
 
+import org.msc.mscAirline.flights.FlightValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,4 +25,12 @@ public class GlobalExceptionHandler {
         errors.put("error", exception.getMessage());
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(FlightValidationException.class)
+    public ResponseEntity<Map<String, String>> handleFlightValidationException(FlightValidationException exception){
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", exception.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
+
 }

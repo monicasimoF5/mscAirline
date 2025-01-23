@@ -1,8 +1,10 @@
 package org.msc.mscAirline.flights;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public record FlightRequest(
@@ -20,7 +22,12 @@ public record FlightRequest(
         @NotNull(message = "The available seats can not be null.")
         int availableSeats,
 
-        Date departureTime,
-        Date arrivalTime
+        @Future(message = "The departure date must be before the arrival date.")
+        @NotNull(message = "The departure time cannot be null.")
+        LocalDateTime departureTime,
+
+        @Future(message = "The arrival date must be before the departure date.")
+        @NotNull(message = "The arrival time cannot be null.")
+        LocalDateTime arrivalTime
 ){
 }
