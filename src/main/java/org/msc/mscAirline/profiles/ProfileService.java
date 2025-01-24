@@ -1,6 +1,8 @@
 package org.msc.mscAirline.profiles;
 
 import jakarta.validation.Valid;
+import org.msc.mscAirline.airports.Airport;
+import org.msc.mscAirline.airports.AirportMapper;
 import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
 import org.msc.mscAirline.users.User;
@@ -19,7 +21,7 @@ public class ProfileService {
     }
 
     public Object createProfile(ProfileRequest profileRequest, User user) throws AirlineAlreadyExistsException {
-        Optional<Profile> findProfile = profileRepository.findByEmail(profileRequest.email());
+        Optional<Profile> findProfile = profileRepository.findProfileByEmail(profileRequest.email());
         if (findProfile.isPresent())
             throw new AirlineAlreadyExistsException("Profile already exist with this email.");
 
@@ -34,42 +36,49 @@ public class ProfileService {
                 .map(ProfileMapper::toResponse).toList();
     }
 
-    public ProfileResponse findById(Long id) {
-        Optional<Profile> optionalProfile = profileRepository.findById(id);
+    public List<ProfileResponse> getAllProfiles() {
+        List<Profile> profileList = profileRepository.findAll();
+        return profileList.stream()
+                .map(ProfileMapper::toResponse).toList();
+    }
+
+    public ProfileResponse findProfileById(Long profileId) {
+        Optional<Profile> optionalProfile = profileRepository.findById(profileId);
 
         if (optionalProfile.isEmpty()) {
-            throw new AirlineNotFoundException("The profile with id " + id + " does not exist.");
+            throw new AirlineNotFoundException("The profile with id " + profileId + " does not exist.");
         }
 
         Profile profile = optionalProfile.get();
         return ProfileMapper.toResponse(profile);
     }
 
-    public List<ProfileResponse> findByEmail(String email) {
-        Optional<Profile> profileList = profileRepository.findByEmail(email);
+    public List<ProfileResponse> findProfileByEmail(String email) {
+        Optional<Profile> profiles = profileRepository.findProfileByEmail(email);
 
-        if (profileList.isEmpty()) {
+        if (profiles.isEmpty()) {
             throw new AirlineNotFoundException("The profile with email " + email + " does not exist.");
         }
-        return profileList.stream()
+        return profiles.stream()
                 .map(ProfileMapper::toResponse).toList();
     }
 
-    public ProfileResponse updateProfileById(Long id, @Valid ProfileRequest profileRequest) {
-        Optional<Profile> optionalProfile = profileRepository.findById(id);
+    public ProfileResponse updateProfileById(Long profileId, @Valid ProfileRequest profileRequest) {
+        Optional<Profile> optionalProfile = profileRepository.findById(profileId);
 
-        if (optionalProfile.isPresent()) {
-            Profile profile = optionalProfile.get();
-
-            profile.setName(profileRequest.name());
-            profile.setPhone(profileRequest.phone());
-            profile.setEmail(profileRequest.email());
-            profile.setPicture(profileRequest.picture());
-
-            Profile updateProfile = profileRepository.save(profile);
-            return ProfileMapper.toResponse(updateProfile);
+        if (!optionalProfile.isPresent()) {
+            throw new AirlineNotFoundException("The profile with id " + profileId + " does not exist.");
         }
-        throw new AirlineNotFoundException("The profile with id " + id + " does not exist.");
+
+        Profile profile = optionalProfile.get();
+        profile.setName(profileRequest.name());
+        profile.setPhone(profileRequest.phone());
+        profile.setEmail(profileRequest.email());
+        profile.setPicture(profileRequest.picture());
+        profileRepository.save(profile);
+
+        return ProfileMapper.toResponse(profile);
     }
+
 }
 

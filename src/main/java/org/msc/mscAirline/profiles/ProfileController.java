@@ -1,13 +1,15 @@
 package org.msc.mscAirline.profiles;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
+import org.msc.mscAirline.airports.AirportResponse;
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
+import org.msc.mscAirline.flights.FlightResponse;
 import org.msc.mscAirline.users.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -30,23 +32,27 @@ public class ProfileController {
                 , HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProfileResponse> getProfileById(@PathVariable Long id){
-        ProfileResponse profileResponse = profileService.findById(id);
-        return new ResponseEntity<>(profileResponse, HttpStatus.OK);
+    @GetMapping()
+    public ResponseEntity<List<ProfileResponse>> getAllProfiles(){
+        List<ProfileResponse> allProfiles = profileService.getAllProfiles();
+        return new ResponseEntity<>(allProfiles, HttpStatus.OK);
     }
 
-    @GetMapping
-    public List<ProfileResponse> getProfileByEmail(@PathParam("email") String email){
-        if (email == null){
-            return profileService.findAll();
+    @GetMapping("/{email}")
+    public List<ProfileResponse> getProfileByIdOrEmail(@PathVariable String email){
+
+        try{
+            Long profileId = Long.parseLong((email));
+            return Collections.singletonList(profileService.findProfileById(profileId));
+        } catch (NumberFormatException exception){
+            return profileService.findProfileByEmail(email);
         }
-        return profileService.findByEmail(email);
+
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProfileResponse> updateProfile(@PathVariable Long id, @RequestBody @Valid ProfileRequest profileRequest){
-        ProfileResponse profileResponse = profileService.updateProfileById(id, profileRequest);
+    @PutMapping("/{profileId}")
+    public ResponseEntity<ProfileResponse> updateProfile(@PathVariable Long profileId, @RequestBody @Valid ProfileRequest profileRequest){
+        ProfileResponse profileResponse = profileService.updateProfileById(profileId, profileRequest);
         return new ResponseEntity<>(profileResponse, HttpStatus.OK);
     }
 }

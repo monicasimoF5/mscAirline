@@ -8,8 +8,8 @@ import org.msc.mscAirline.users.User;
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_profile", nullable = false)
-    private Long id;
+    @Column(name = "id_profile")
+    private Long profileId;
     private String name;
     private String phone;
     private String email;
@@ -30,12 +30,12 @@ public class Profile {
     public Profile() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getProfileId() {
+        return profileId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
     }
 
     public String getName() {

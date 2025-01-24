@@ -39,7 +39,7 @@ public class FlightController {
         try{
             Long id = Long.parseLong(name);
             return Collections.singletonList(flightService.findFlightById(id));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException exception) {
             return flightService.findFligthByName(name);
         }
     }

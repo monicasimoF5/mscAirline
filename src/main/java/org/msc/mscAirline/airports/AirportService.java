@@ -33,17 +33,17 @@ public class AirportService {
                 .map(AirportMapper::toResponse).toList();
     }
 
-    public AirportResponse findById(Long id) {
-        Optional<Airport> optionalAirport = airportRepository.findById(id);
+    public AirportResponse findAirportById(Long airportId) {
+        Optional<Airport> optionalAirport = airportRepository.findById(airportId);
 
         if (optionalAirport.isEmpty()){
-            throw new AirlineNotFoundException("The Airport with id " + id + " does not exist.");
+            throw new AirlineNotFoundException("The Airport with id " + airportId + " does not exist.");
         }
         Airport airport = optionalAirport.get();
         return AirportMapper.toResponse(airport);
     }
 
-    public List<AirportResponse> findByName(String name){
+    public List<AirportResponse> findAirportByName(String name){
         Optional<Airport> airports = airportRepository.findByName(name);
 
         if (airports.isEmpty()){

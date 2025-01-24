@@ -68,7 +68,7 @@ class AirportServiceTest {
         Airport airport = new Airport(airportId, "Barajas", "Madrid", "Spain");
         when(airportRepository.findById(airportId)).thenReturn(Optional.of(airport));
 
-        AirportResponse response = airportService.findById(airportId);
+        AirportResponse response = airportService.findAirportById(airportId);
 
         assertEquals(response.airportId(), airport.getAirportId());
         assertEquals(response.name(), airport.getName());
@@ -81,7 +81,7 @@ class AirportServiceTest {
         Airport airport = new Airport(1L, airportName, "Madrid", "Spain");
         when(airportRepository.findByName(airportName)).thenReturn(Optional.of(airport));
 
-        List<AirportResponse> responses = airportService.findByName(airportName);
+        List<AirportResponse> responses = airportService.findAirportByName(airportName);
 
         assertEquals(responses.size(), 1);
         assertEquals(responses.get(0).name(), airportName);

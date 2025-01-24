@@ -1,6 +1,7 @@
 package org.msc.mscAirline.airports;
 
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,20 +33,20 @@ public class AirportController {
     @GetMapping("/{name}")
     public List<AirportResponse> getAirportByIdOrName(@PathVariable String name){
         try{
-            Long id = Long.parseLong(name);
-            return Collections.singletonList(airportService.findById(id));
+            Long airportId = Long.parseLong(name);
+            return Collections.singletonList(airportService.findAirportById(airportId));
         } catch (NumberFormatException e) {
-            return airportService.findByName(name);
+            return airportService.findAirportByName(name);
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<AirportResponse> updateAirport(@PathVariable Long id, @RequestBody @Valid AirportRequest airportRequest){
-        AirportResponse airportResponse = airportService.updateAirportById(id, airportRequest);
+    @PutMapping("/{airportId}")
+    public ResponseEntity<AirportResponse> updateAirport(@PathVariable Long airportId, @RequestBody @Valid AirportRequest airportRequest){
+        AirportResponse airportResponse = airportService.updateAirportById(airportId, airportRequest);
         return new ResponseEntity<>(airportResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{airportId}")
     public ResponseEntity<String> deleteAirport(@PathVariable Long id){
         airportService.deleteAirportById(id);
         return new ResponseEntity<>("The airport has been eliminated", HttpStatus.OK);

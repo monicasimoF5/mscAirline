@@ -16,7 +16,7 @@ public class ProfileMapper {
 
     public static ProfileResponse toResponse(Profile profile){
         return new ProfileResponse(
-                profile.getId(),
+                profile.getProfileId(),
                 profile.getName(),
                 profile.getPhone(),
                 profile.getEmail(),
