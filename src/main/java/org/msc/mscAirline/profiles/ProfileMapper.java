@@ -19,8 +19,9 @@ public class ProfileMapper {
                 profile.getId(),
                 profile.getName(),
                 profile.getPhone(),
+                profile.getEmail(),
                 profile.getPicture(),
-                profile.getUser()
+                profile.getUser().getId()
         );
     }
 

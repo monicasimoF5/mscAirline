@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/airports")
+@RequestMapping("/api/v1/airports")
 public class AirportController {
     private final AirportService airportService;
 

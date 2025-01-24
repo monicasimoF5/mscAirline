@@ -6,7 +6,8 @@ public record ProfileResponse(
         Long id,
         String name,
         String phone,
+        String email,
         String picture,
-        User user
+        Long userId
 ) {
 }

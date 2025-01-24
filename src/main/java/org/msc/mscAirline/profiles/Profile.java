@@ -54,6 +54,14 @@ public class Profile {
         this.phone = phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPicture() {
         return picture;
     }

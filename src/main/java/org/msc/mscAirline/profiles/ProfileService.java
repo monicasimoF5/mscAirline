@@ -1,5 +1,6 @@
 package org.msc.mscAirline.profiles;
 
+import jakarta.validation.Valid;
 import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
 import org.msc.mscAirline.users.User;
@@ -27,10 +28,16 @@ public class ProfileService {
         return ProfileMapper.toResponse(savedProfile);
     }
 
+    public List<ProfileResponse> findAll() {
+        List<Profile> profileList = profileRepository.findAll();
+        return profileList.stream()
+                .map(ProfileMapper::toResponse).toList();
+    }
+
     public ProfileResponse findById(Long id) {
         Optional<Profile> optionalProfile = profileRepository.findById(id);
 
-        if (optionalProfile.isEmpty()){
+        if (optionalProfile.isEmpty()) {
             throw new AirlineNotFoundException("The profile with id " + id + " does not exist.");
         }
 
@@ -38,22 +45,31 @@ public class ProfileService {
         return ProfileMapper.toResponse(profile);
     }
 
-    public List<ProfileResponse> findAll (){
-        List<Profile> profileList = profileRepository.findAll();
-        return profileList.stream()
-                .map(ProfileMapper::toResponse).toList();
-    }
-
-
     public List<ProfileResponse> findByEmail(String email) {
         Optional<Profile> profileList = profileRepository.findByEmail(email);
 
-        if (profileList.isEmpty()){
+        if (profileList.isEmpty()) {
             throw new AirlineNotFoundException("The profile with email " + email + " does not exist.");
         }
         return profileList.stream()
                 .map(ProfileMapper::toResponse).toList();
     }
 
+    public ProfileResponse updateProfileById(Long id, @Valid ProfileRequest profileRequest) {
+        Optional<Profile> optionalProfile = profileRepository.findById(id);
 
+        if (optionalProfile.isPresent()) {
+            Profile profile = optionalProfile.get();
+
+            profile.setName(profileRequest.name());
+            profile.setPhone(profileRequest.phone());
+            profile.setEmail(profileRequest.email());
+            profile.setPicture(profileRequest.picture());
+
+            Profile updateProfile = profileRepository.save(profile);
+            return ProfileMapper.toResponse(updateProfile);
+        }
+        throw new AirlineNotFoundException("The profile with id " + id + " does not exist.");
+    }
 }
+

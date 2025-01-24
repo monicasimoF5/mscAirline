@@ -20,7 +20,7 @@ public record ProfileRequest(
 
         String picture,
 
-        @NotNull(message = "The guardian ID cannot be null")
+        @NotNull(message = "The profile ID cannot be null")
         Long userId
 
 ) {
