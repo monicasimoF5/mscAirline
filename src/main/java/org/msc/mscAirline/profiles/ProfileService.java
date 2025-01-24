@@ -45,8 +45,8 @@ public class ProfileService {
     }
 
 
-    public List<ProfileResponse> findByEmailIgnoreCaseContaining(String email) {
-        List<Profile> profileList = profileRepository.findByEmailIgnoreCaseContaining(email);
+    public List<ProfileResponse> findByEmail(String email) {
+        Optional<Profile> profileList = profileRepository.findByEmail(email);
 
         if (profileList.isEmpty()){
             throw new AirlineNotFoundException("The profile with email " + email + " does not exist.");
@@ -54,4 +54,6 @@ public class ProfileService {
         return profileList.stream()
                 .map(ProfileMapper::toResponse).toList();
     }
+
+
 }

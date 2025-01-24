@@ -38,7 +38,9 @@ public class ProfileController {
         if (email == null){
             return profileService.findAll();
         }
-        return profileService.findByEmailIgnoreCaseContaining(email);
+        return profileService.findByEmail(email);
     }
+
+
 
 }

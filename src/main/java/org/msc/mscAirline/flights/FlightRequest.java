@@ -13,10 +13,10 @@ public record FlightRequest(
         @NotEmpty(message = "The flight name can not be empty.")
         String name,
 
-        @NotNull(message = "The origin can not be null.")
+        //@NotNull(message = "The origin can not be null.")
         Long originId,
 
-        @NotNull(message = "The destination can not be null.")
+        //@NotNull(message = "The destination can not be null.")
         Long destinationId,
 
         @NotNull(message = "The available seats can not be null.")

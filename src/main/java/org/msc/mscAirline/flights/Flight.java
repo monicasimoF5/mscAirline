@@ -23,12 +23,8 @@ public class Flight {
     private String name;
     private int availableSeats;
 
-    @Future
-    @NotNull
     private LocalDateTime departureTime;
 
-    @Future
-    @NotNull
     private LocalDateTime arrivalTime;
 
     @OneToOne

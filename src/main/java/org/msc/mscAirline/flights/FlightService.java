@@ -50,7 +50,7 @@ public class FlightService {
         return responseList;
     }
 
-    public Flight createFlight(FlightRequest flightRequest){
+    public Flight createFlight(@Valid FlightRequest flightRequest){
 
         Optional<Airport> originAirport = airportRepository.findById(flightRequest.originId());
         if (!originAirport.isPresent()){
@@ -90,7 +90,7 @@ public class FlightService {
                 .map(FlightMapper::toResponse).toList();
     }
 
-    public FlightResponse updateFlightById(Long flightId, FlightRequest flightRequest) {
+    public FlightResponse updateFlightById(@Valid Long flightId, FlightRequest flightRequest) {
         Optional<Flight> existingFlight = flightRepository.findById(flightId);
 
         if (!existingFlight.isPresent()) {
@@ -101,7 +101,7 @@ public class FlightService {
         flight.setName(flightRequest.name());
         flight.setAvailableSeats(flightRequest.availableSeats());
         flight.setDepartureTime(flightRequest.departureTime());
-        flight.setArrivalTime(flightRequest.departureTime());
+        flight.setArrivalTime(flightRequest.arrivalTime());
         flightRepository.save(flight);
 
         validateFlight(flight);

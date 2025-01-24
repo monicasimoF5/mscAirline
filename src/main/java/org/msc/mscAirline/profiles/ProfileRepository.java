@@ -9,9 +9,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
-  Optional<Profile> existsByEmail(String email);
-
-  Optional<Profile> findByEmail(@NotNull @NotEmpty @Email(message = "The email must be a correctly formatted address.") String email);
-
-  List<Profile> findByEmailIgnoreCaseContaining(String email);
+  Optional<Profile>  findByEmail(String email);
 }
