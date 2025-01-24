@@ -1,4 +1,6 @@
 package org.msc.mscAirline.users;
 
-public record UserRequest(String username, String password) {
+import org.msc.mscAirline.roles.Role;
+
+public record UserRequest(String username, String password, Role role) {
 }
