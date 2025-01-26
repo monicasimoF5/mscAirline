@@ -32,4 +32,11 @@ public class ReservationController {
         return new ResponseEntity<>(reservationResponseList, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ReservationResponse> getReservationById(@PathVariable Long id){
+        ReservationResponse reservationResponse = reservationService.findReservationById(id);
+        return new ResponseEntity<>(reservationResponse, HttpStatus.OK);
+    }
+
+
 }

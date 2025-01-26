@@ -75,5 +75,19 @@ public class ReservationService {
         return reservationResponseList;
     }
 
+    public ReservationResponse findReservationById (Long id){
+        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+
+        if (optionalReservation.isEmpty()){
+            throw new AirlineNotFoundException("The reservation " + id + " does not exist.");
+        }
+
+        Reservation reservation = optionalReservation.get();
+        return ReservationMapper.toResponse(reservation);
+    }
+
+
+
+
 
 }
