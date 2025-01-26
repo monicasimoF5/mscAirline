@@ -32,17 +32,11 @@ public class Reservation {
     @JoinColumn(name = "user_id")
     User user;
 
-    public Reservation(Long reservationId, Date reservationTime, int seats, Flight flight, User user) {
+    public Reservation(Date reservationTime, int seats, Flight flight, User user) {
         this.reservationTime = reservationTime;
         this.seats = seats;
         this.flight = flight;
         this.user = user;
-    }
-
-    public Reservation() {
-    }
-
-    public Reservation(Date date, int seats, Flight flight, User user) {
     }
 
     @PrePersist

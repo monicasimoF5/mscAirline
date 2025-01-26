@@ -2,7 +2,6 @@ package org.msc.mscAirline.flights;
 
 import jakarta.validation.Valid;
 import org.msc.mscAirline.airports.Airport;
-import org.msc.mscAirline.airports.AirportMapper;
 import org.msc.mscAirline.airports.AirportRepository;
 import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.springframework.stereotype.Service;

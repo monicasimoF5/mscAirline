@@ -102,4 +102,16 @@ public class Flight {
     public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
+
+    public void reserveSeats(int seats) {
+        if (this.availableSeats == 0) {
+            throw new IllegalArgumentException("The flight is complete.");
+        }
+
+        if (seats <= 0 || seats > this.availableSeats) {
+            throw new IllegalArgumentException("Invalid number of seats to reserve.");
+        }
+
+        this.availableSeats -= seats;
+    }
 }
