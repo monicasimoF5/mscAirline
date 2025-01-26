@@ -10,6 +10,9 @@ import org.msc.mscAirline.users.User;
 import org.msc.mscAirline.users.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,4 +58,22 @@ public class ReservationService {
         return ReservationMapper.toResponse(savedReservation);
 
     }
+
+    public List<ReservationResponse> findAllReservations(){
+        List<Reservation> reservationList = reservationRepository.findAll();
+        List<ReservationResponse> reservationResponseList = new ArrayList<>(Collections.emptyList());
+
+        reservationList.forEach(reservation -> {
+            ReservationResponse reservationResponse = ReservationMapper.toResponse(reservation);
+            reservationResponseList.add(reservationResponse);
+        });
+
+        if (reservationList.isEmpty()){
+            throw new AirlineNotFoundException("There is not reservation to show.");
+        }
+
+        return reservationResponseList;
+    }
+
+
 }

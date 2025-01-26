@@ -39,6 +39,9 @@ public class Reservation {
         this.user = user;
     }
 
+    public Reservation() {
+    }
+
     @PrePersist
     public void onReservation(){
         LocalDateTime now = LocalDateTime.now(of("Europe/Madrid"));
