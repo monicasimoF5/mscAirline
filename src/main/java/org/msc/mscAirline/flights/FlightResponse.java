@@ -1,10 +1,8 @@
 package org.msc.mscAirline.flights;
 
-import org.msc.mscAirline.airports.Airport;
 import org.msc.mscAirline.airports.AirportResponse;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public record FlightResponse(
         Long flightId,
@@ -13,6 +11,7 @@ public record FlightResponse(
         AirportResponse destination,
         int availableSeats,
         LocalDateTime departureTime,
-        LocalDateTime arrivalTime
+        LocalDateTime arrivalTime,
+        boolean statusFlight
 ) {
 }

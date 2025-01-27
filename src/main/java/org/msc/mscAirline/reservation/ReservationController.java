@@ -1,6 +1,7 @@
 package org.msc.mscAirline.reservation;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,9 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationResponse> createReservation(@RequestBody @Valid ReservationRequest reservationRequestDTO) throws Exception {
-        ReservationResponse reservationResponseDTO = reservationService.createReservation(reservationRequestDTO);
-        return new ResponseEntity<>(reservationResponseDTO, HttpStatus.CREATED);
+    public ResponseEntity<ReservationResponse> createReservation(@RequestBody @Valid @NotNull ReservationRequest reservationRequest){
+        ReservationResponse reservationResponse = reservationService.createReservation(reservationRequest);
+        return new ResponseEntity<>(reservationResponse, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -33,7 +34,7 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReservationResponse> getReservationById(@PathVariable Long id){
+    public ResponseEntity<ReservationResponse> getReservationById(@PathVariable @Valid Long id){
         ReservationResponse reservationResponse = reservationService.findReservationById(id);
         return new ResponseEntity<>(reservationResponse, HttpStatus.OK);
     }

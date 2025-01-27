@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public record FlightRequest(
 
@@ -28,6 +27,8 @@ public record FlightRequest(
 
         @Future(message = "The arrival date must be before the departure date.")
         @NotNull(message = "The arrival time cannot be null.")
-        LocalDateTime arrivalTime
+        LocalDateTime arrivalTime,
+
+        boolean statusFlight
 ){
 }

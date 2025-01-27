@@ -1,11 +1,8 @@
 package org.msc.mscAirline.reservation;
 
-import jakarta.validation.Valid;
 import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.msc.mscAirline.flights.Flight;
 import org.msc.mscAirline.flights.FlightRepository;
-import org.msc.mscAirline.flights.FlightService;
-import org.msc.mscAirline.register.RegisterService;
 import org.msc.mscAirline.users.User;
 import org.msc.mscAirline.users.UserRepository;
 import org.springframework.stereotype.Service;
@@ -32,21 +29,25 @@ public class ReservationService {
 
     }
 
-    public ReservationResponse createReservation(@Valid ReservationRequest reservationRequest) throws Exception {
+    public ReservationResponse createReservation(ReservationRequest reservationRequest){
         Optional<User> optionalUser = userRepository.findUserById(reservationRequest.userId());
         Optional<Flight> optionalFlight = flightRepository.findById(reservationRequest.flightId());
 
-        if (!optionalUser.isPresent()) {
+        if (optionalUser.isEmpty()) {
             throw new AirlineNotFoundException("There is no user with this id.");
         }
 
-        if (!optionalFlight.isPresent()){
+        if (optionalFlight.isEmpty()){
             throw new AirlineNotFoundException("There is no flight with this id.");
         }
 
         Flight flight = optionalFlight.get();
         if (reservationRequest.seats() > flight.getAvailableSeats()){
-            throw new IllegalArgumentException("We are sorry, we do not have enough seats for this flight.");
+            throw new IllegalArgumentException("We're sorry, we don't have enough free seats for this flight.");
+        }
+
+        if (flight.getAvailableSeats() == 0){
+            throw new IllegalArgumentException("There are no seats available for this flight.");
         }
 
         Reservation reservation = ReservationMapper.toEntity(reservationRequest, optionalFlight.get(), optionalUser.get());

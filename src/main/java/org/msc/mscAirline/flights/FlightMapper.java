@@ -1,6 +1,5 @@
 package org.msc.mscAirline.flights;
 
-
 import org.msc.mscAirline.airports.Airport;
 import org.msc.mscAirline.airports.AirportMapper;
 
@@ -12,7 +11,8 @@ public class FlightMapper {
                 airportDestination,
                 flightRequest.availableSeats(),
                 flightRequest.departureTime(),
-                flightRequest.arrivalTime()
+                flightRequest.arrivalTime(),
+                flightRequest.statusFlight()
         );
     }
 
@@ -24,7 +24,8 @@ public class FlightMapper {
                 AirportMapper.toResponse(flight.getDestination()),
                 flight.getAvailableSeats(),
                 flight.getDepartureTime(),
-                flight.getArrivalTime()
+                flight.getArrivalTime(),
+                flight.isStatusFlight()
         );
     }
 }

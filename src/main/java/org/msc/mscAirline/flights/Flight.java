@@ -1,14 +1,10 @@
 package org.msc.mscAirline.flights;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.msc.mscAirline.airports.Airport;
 
 import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 @Entity
 @Getter
@@ -35,13 +31,16 @@ public class Flight {
     @JoinColumn(name = "destination_id")
     Airport destination;
 
-    public Flight(String name, Airport origin, Airport destination, int availableSeats, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    private boolean statusFlight;
+
+    public Flight(String name, Airport origin, Airport destination, int availableSeats, LocalDateTime departureTime, LocalDateTime arrivalTime, boolean statusFlight) {
         this.name = name;
         this.origin = origin;
         this.destination = destination;
         this.availableSeats = availableSeats;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
+        this.statusFlight = statusFlight;
     }
 
     public Flight() {
@@ -103,13 +102,22 @@ public class Flight {
         this.arrivalTime = arrivalTime;
     }
 
+    public boolean isStatusFlight() {
+        return statusFlight;
+    }
+
+    public void setStatusFlight(boolean statusFlight) {
+        this.statusFlight = statusFlight;
+    }
+
     public void reserveSeats(int seats) {
-        if (this.availableSeats == 0) {
-            throw new IllegalArgumentException("The flight is complete.");
-        }
 
         if (seats <= 0 || seats > this.availableSeats) {
-            throw new IllegalArgumentException("Invalid number of seats to reserve.");
+            throw new IllegalArgumentException("Insufficient number of seats to reserve.");
+        }
+
+        if (this.availableSeats != 0) {
+            this.statusFlight = true;
         }
 
         this.availableSeats -= seats;

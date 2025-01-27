@@ -2,7 +2,6 @@ package org.msc.mscAirline.flights;
 
 import jakarta.validation.Valid;
 import org.msc.mscAirline.airports.AirportRepository;
-import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
