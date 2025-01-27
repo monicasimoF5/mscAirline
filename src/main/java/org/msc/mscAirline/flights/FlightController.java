@@ -2,11 +2,14 @@ package org.msc.mscAirline.flights;
 
 import jakarta.validation.Valid;
 import org.msc.mscAirline.airports.AirportRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,10 +30,21 @@ public class FlightController {
         return new ResponseEntity<>(flight, HttpStatus.CREATED);
     }
 
-    @GetMapping()
+    @GetMapping(("/all"))
     public ResponseEntity<List<FlightResponse>> getAllFlights(){
         List<FlightResponse> allFlights = flightService.listAllFlights();
         return new ResponseEntity<>(allFlights, HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public List<FlightResponse> searchFlights(
+            @RequestParam(value = "originAirportId", required = false) Long originAirportId,
+            @RequestParam(value = "destinationAirportId", required = false) Long destinationAirportId,
+            @RequestParam(value = "departureTime", required = false) LocalDateTime departureTime,
+            @RequestParam(value = "availableSeats", required = false, defaultValue = "1") int availableSeats
+    ) {
+        List<FlightResponse> flights = flightService.searchFlights(originAirportId, destinationAirportId, departureTime, availableSeats);
+        return new ResponseEntity<>(flights, HttpStatus.OK).getBody();
     }
 
     @GetMapping("/{name}")

@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FlightService {
@@ -38,7 +35,7 @@ public class FlightService {
         flight.setStatusFlight(flight.getAvailableSeats() > 0 && LocalDateTime.now().isBefore(flight.getDepartureTime()));
 
         if (flight.getAvailableSeats() <= 0 || LocalDateTime.now().isAfter(flight.getDepartureTime())) {
-            flight.setStatusFlight(false); // Cambiar el estado a false si no hay plazas o está fuera de fecha
+            flight.setStatusFlight(false);
         }
 
         if (flight.getOrigin() == null || flight.getDestination() == null) {
@@ -74,14 +71,27 @@ public class FlightService {
         return responseList;
     }
 
-    public Flight createFlight(@Valid FlightRequest flightRequest){
+    public Flight createFlight(FlightRequest flightRequest){
+        Optional<Airport> originAirport = airportRepository.findById(flightRequest.originId());
+        if (originAirport.isEmpty()) {
+            throw new FlightValidationException("Origin airport with ID " + flightRequest.originId() + " does not exist.");
+        }
 
-        Flight flight = FlightMapper.toEntity(flightRequest,
-                airportRepository.findById(flightRequest.originId()).orElse(null),
-                airportRepository.findById(flightRequest.destinationId()).orElse(null));
+        Optional<Airport> destinationAirport = airportRepository.findById(flightRequest.destinationId());
+        if (destinationAirport.isEmpty()) {
+            throw new FlightValidationException("Destination airport with ID " + flightRequest.destinationId() + " does not exist.");
+        }
+
+        Flight flight = FlightMapper.toEntity(flightRequest, originAirport.get(), destinationAirport.get());
+
         validateFlight(flight);
-        return flightRepository.save(flight);
 
+        List<Flight> existingFlights = flightRepository.findByOriginAndDestinationAndDepartureTime(flight.getOrigin(), flight.getDestination(), flight.getDepartureTime());
+        if (!existingFlights.isEmpty()) {
+            throw new FlightValidationException("A flight with the same origin, destination, and departure time already exists.");
+        }
+
+        return flightRepository.save(flight);
     }
 
     public FlightResponse findFlightById(Long flightId) {
@@ -135,6 +145,18 @@ public class FlightService {
 
     }
 
+    public List<FlightResponse> searchFlights(Long originAirportId, Long destinationAirportId, LocalDateTime departureTime, int availableSeats) {
+        List<Flight> flights = flightRepository.findFlightsByCriteria(originAirportId, destinationAirportId, departureTime, availableSeats);
 
+        if (flights.isEmpty()){
+            throw new AirlineNotFoundException("No flights found matching the search criteria.");
+        }
+
+        return flights.stream()
+                .map(FlightMapper::toResponse)
+                .toList();
+    }
 
 }
+
+

@@ -23,11 +23,11 @@ public class Flight {
 
     private LocalDateTime arrivalTime;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "origin_id")
     Airport origin;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "destination_id")
     Airport destination;
 
