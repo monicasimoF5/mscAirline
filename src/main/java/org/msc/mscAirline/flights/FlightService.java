@@ -6,6 +6,7 @@ import org.msc.mscAirline.airports.AirportRepository;
 import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -145,8 +146,8 @@ public class FlightService {
 
     }
 
-    public List<FlightResponse> searchFlights(Long originAirportId, Long destinationAirportId, LocalDateTime departureTime, int availableSeats) {
-        List<Flight> flights = flightRepository.findFlightsByCriteria(originAirportId, destinationAirportId, departureTime, availableSeats);
+    public List<FlightResponse> searchFlights(String originCity, String destinationCity, LocalDate departureTime, int availableSeats) {
+        List<Flight> flights = flightRepository.findFlightsByCriteria(originCity, destinationCity, departureTime, availableSeats);
 
         if (flights.isEmpty()){
             throw new AirlineNotFoundException("No flights found matching the search criteria.");

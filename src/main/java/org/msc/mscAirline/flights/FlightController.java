@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
@@ -38,12 +39,12 @@ public class FlightController {
 
     @GetMapping()
     public List<FlightResponse> searchFlights(
-            @RequestParam(value = "originAirportId", required = false) Long originAirportId,
-            @RequestParam(value = "destinationAirportId", required = false) Long destinationAirportId,
-            @RequestParam(value = "departureTime", required = false) LocalDateTime departureTime,
+            @RequestParam(value = "originCity", required = false) String originCity,
+            @RequestParam(value = "destinationCity", required = false) String destinationCity,
+            @RequestParam(value = "departureTime", required = false) LocalDate departureTime,
             @RequestParam(value = "availableSeats", required = false, defaultValue = "1") int availableSeats
     ) {
-        List<FlightResponse> flights = flightService.searchFlights(originAirportId, destinationAirportId, departureTime, availableSeats);
+        List<FlightResponse> flights = flightService.searchFlights(originCity, destinationCity, departureTime, availableSeats);
         return new ResponseEntity<>(flights, HttpStatus.OK).getBody();
     }
 
