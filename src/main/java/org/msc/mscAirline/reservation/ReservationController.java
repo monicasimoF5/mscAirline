@@ -39,8 +39,8 @@ public class ReservationController {
         return new ResponseEntity<>(reservationResponse, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ReservationResponse> updateReservation(@RequestParam Long reservationId, @RequestBody @Valid ReservationRequest reservationRequest){
+    @PutMapping("/{reservationId}")
+    public ResponseEntity<ReservationResponse> updateReservation(@PathVariable Long reservationId, @RequestBody @Valid ReservationRequest reservationRequest){
         ReservationResponse reservationResponse = reservationService.updateReservation(reservationId, reservationRequest);
         return new ResponseEntity<>(reservationResponse, HttpStatus.OK);
     }

@@ -88,4 +88,5 @@ public class Reservation {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

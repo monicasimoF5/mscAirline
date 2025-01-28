@@ -105,6 +105,7 @@ public class ReservationService {
             throw new AirlineNotFoundException("The Flight with the id" + reservationRequest.flightId() + "does not exist.");
         }
 
+        reservation.setReservationTime(reservation.getReservationTime());
         reservation.setSeats(reservationRequest.seats());
 
         Reservation updateReservation = reservationRepository.save(reservation);
@@ -113,9 +114,7 @@ public class ReservationService {
 
     }
 
-
-
-
+    public void deleteReservation(){}
 
 
 
