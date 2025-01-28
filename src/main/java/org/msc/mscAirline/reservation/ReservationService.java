@@ -87,6 +87,34 @@ public class ReservationService {
         return ReservationMapper.toResponse(reservation);
     }
 
+    public ReservationResponse updateReservation(Long reservationId, ReservationRequest reservationRequest){
+        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
+        if (optionalReservation.isEmpty()){
+            throw new AirlineNotFoundException("The reservation with id " + reservationId + " does not exist.");
+        }
+
+        Reservation reservation = optionalReservation.get();
+
+        Optional<User> optionalUser = userRepository.findById(reservationRequest.userId());
+        if (optionalUser.isEmpty()){
+            throw new AirlineNotFoundException("User with id " + reservationRequest.userId() + " does not exist.");
+        }
+
+        Optional<Flight> optionalFlight = flightRepository.findById(reservationRequest.flightId());
+        if(optionalFlight.isEmpty()){
+            throw new AirlineNotFoundException("The Flight with the id" + reservationRequest.flightId() + "does not exist.");
+        }
+
+        reservation.setSeats(reservationRequest.seats());
+
+        Reservation updateReservation = reservationRepository.save(reservation);
+
+        return ReservationMapper.toResponse(updateReservation);
+
+    }
+
+
+
 
 
 
