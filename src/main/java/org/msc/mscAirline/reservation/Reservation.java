@@ -12,11 +12,12 @@ import java.util.Date;
 import static java.time.ZoneId.of;
 
 @Entity
+@Table(name = "reservations")
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reservation_id", nullable = false)
+    @Column(name = "id_reservation", nullable = false)
     private Long reservationId;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -25,11 +26,11 @@ public class Reservation {
     int seats;
 
     @ManyToOne
-    @JoinColumn(name = "flight_id")
+    @JoinColumn(name = "id_flight")
     Flight flight;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "id_user")
     User user;
 
     public Reservation(Date reservationTime, int seats, Flight flight, User user) {

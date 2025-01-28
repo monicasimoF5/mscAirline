@@ -7,6 +7,7 @@ import org.msc.mscAirline.airports.Airport;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "flights")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(name = "id_flight", nullable = false)
     private Long flightId;
     private String name;
     private int availableSeats;
@@ -24,11 +25,11 @@ public class Flight {
     private LocalDateTime arrivalTime;
 
     @ManyToOne
-    @JoinColumn(name = "origin_id")
+    @JoinColumn(name = "id_origin")
     Airport origin;
 
     @ManyToOne
-    @JoinColumn(name = "destination_id")
+    @JoinColumn(name = "id_destination")
     Airport destination;
 
     private boolean statusFlight;
