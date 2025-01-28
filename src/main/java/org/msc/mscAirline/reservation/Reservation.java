@@ -24,11 +24,11 @@ public class Reservation {
 
     int seats;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "flight_id")
     Flight flight;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
 

@@ -23,19 +23,12 @@ public class Airport {
         this.country = country;
     }
 
-    public Airport(
-            long airportId,
+    public Airport(long airportId,
 
-            @NotNull(message = "The name cannot be null.")
-            @NotEmpty(message = "The name cannot be empty.")
             String name,
 
-            @NotNull(message = "The city cannot be null.")
-            @NotEmpty(message = "The city cannot be empty.")
             String city,
 
-            @NotNull(message = "The country cannot be null.")
-            @NotEmpty(message = "The country cannot be empty.")
             String country) {
         this.airportId = airportId;
         this.name = name;

@@ -39,11 +39,11 @@ public class ReservationService {
 
         Flight flight = optionalFlight.get();
         if (reservationRequest.seats() > flight.getAvailableSeats()){
-            throw new IllegalArgumentException("We're sorry, we don't have enough free seats for this flight.");
+            throw new ReservationValidationException("We're sorry, we don't have enough free seats for this flight.");
         }
 
         if (flight.getAvailableSeats() == 0){
-            throw new IllegalArgumentException("There are no seats available for this flight.");
+            throw new ReservationValidationException("There are no seats available for this flight.");
         }
 
         Reservation reservation = ReservationMapper.toEntity(reservationRequest, optionalFlight.get(), optionalUser.get());
@@ -57,12 +57,9 @@ public class ReservationService {
         }
 
         flightRepository.save(flight);
-
-        flightRepository.save(flight);
-
         return ReservationMapper.toResponse(savedReservation);
-
     }
+
 
     public List<ReservationResponse> findAllReservations(){
         List<Reservation> reservationList = reservationRepository.findAll();
@@ -124,16 +121,15 @@ public class ReservationService {
                 throw new IllegalArgumentException("Not enough seats available for the requested increase.");
             }
             flight.setAvailableSeats(availableSeats - seatDifference);
-        }
-
-        if (seatDifference < 0) {
+        } else if (seatDifference < 0) {
             flight.setAvailableSeats(availableSeats - seatDifference);
         }
 
         if (flight.getAvailableSeats() == 0) {
             flight.setStatusFlight(false);
+        } else {
+            flight.setStatusFlight(true);
         }
-        flight.setStatusFlight(true);
 
         flightRepository.save(flight);
         Reservation updatedReservation = reservationRepository.save(reservation);
@@ -141,10 +137,10 @@ public class ReservationService {
         return ReservationMapper.toResponse(updatedReservation);
     }
 
-    public void deleteReservation(Long reservationId){
+    public void deleteReservation(Long reservationId) {
         Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
 
-        if (optionalReservation.isEmpty()){
+        if (optionalReservation.isEmpty()) {
             throw new AirlineNotFoundException("The reservation with id " + reservationId + " does not exist.");
         }
 
@@ -152,13 +148,15 @@ public class ReservationService {
         Flight flight = reservation.getFlight();
 
         int reservedSeats = reservation.getSeats();
-
         int availableSeats = flight.getAvailableSeats();
+
         flight.setAvailableSeats(availableSeats + reservedSeats);
 
+        flight.setStatusFlight(flight.getAvailableSeats() > 0);
+
+        flightRepository.save(flight);
         reservationRepository.deleteById(reservationId);
     }
-
 
 
 }
