@@ -45,5 +45,10 @@ public class ReservationController {
         return new ResponseEntity<>(reservationResponse, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{reservationId}")
+    public ResponseEntity<String> deleteReservation(@PathVariable Long reservationId){
+        reservationService.deleteReservation(reservationId);
+        return new ResponseEntity<>("The reservation has been eliminated.", HttpStatus.OK);
+    }
 
 }

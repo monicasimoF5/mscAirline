@@ -114,7 +114,14 @@ public class ReservationService {
 
     }
 
-    public void deleteReservation(){}
+    public void deleteReservation(Long reservationId){
+        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
+
+        if (optionalReservation.isEmpty()){
+            throw new AirlineNotFoundException("The reservation with id " + reservationId + " does not exist.");
+        }
+        reservationRepository.deleteById(reservationId);
+    }
 
 
 
