@@ -32,8 +32,8 @@ INSERT INTO profiles (id_user, email, name, phone, picture)
 VALUES (2, 'email2@msc.com', 'profile2', 'phone2', 'picture2');
 
 /* Roles Users */
-INSERT INTO roles_users (role_id, user_id) VALUES (1, 1);
-INSERT INTO roles_users (role_id, user_id) VALUES (2, 2);
+INSERT INTO roles_users (role_id, user_id, id_user, id_role) VALUES (1, 1, 1, 1);
+INSERT INTO roles_users (role_id, user_id, id_user, id_role) VALUES (2, 2, 2, 2);
 
 /* Airports */
 INSERT INTO airports (city, country, name) VALUES ('City1', 'Country1', 'Airport1');
