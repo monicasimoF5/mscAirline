@@ -22,9 +22,9 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Build with Maven
-        run: mvn clean compile
+      - name: Clean and build with Maven
+        run: mvn clean install -X
 
-      - name: Run Tests
-        run: mvn -X test
+      - name: Run Tests with detailed logs
+        run: mvn test -e
 
