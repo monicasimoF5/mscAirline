@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -46,4 +47,28 @@ public class UserService {
                 .map(UserMapper::toResponse).toList();
     }
 
+    public UserResponse updateUserById(Long id, UserRequest userRequestDTO){
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+
+            user.setRoles(Set.of(userRequestDTO.role()));
+            user.setUsername(userRequestDTO.username());
+            user.setPassword((userRequestDTO.password()));
+
+            User updatedUser = userRepository.save(user);
+            return UserMapper.toResponse(updatedUser);
+        }
+        throw new AirlineNotFoundException("The user with the id" + id + "does not exist.");
+    }
+
+    public void deleteUserById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if(optionalUser.isEmpty()){
+            throw new AirlineNotFoundException("The user with the id" + id + "does not exist.");
+        }
+        userRepository.deleteById(id);
+    }
 }

@@ -14,10 +14,10 @@ public record ReservationRequest(
         @NotNull(message = "The number of seats cannot be null.")
         int seats,
 
-        //@NotNull(message = "The field flight ID cannot be null.")
+        @NotNull(message = "The field flight ID cannot be null.")
         Long flightId,
 
-        //@NotNull(message = "The field user ID cannot be null.")
+        @NotNull(message = "The field user ID cannot be null.")
         Long userId
 
 ) {
