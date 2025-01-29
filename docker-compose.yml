@@ -12,5 +12,16 @@ services:
     ports:
       - 5432:5432
 
+  your-app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: mscairline_dev
+      DB_USER: postgres
+      DB_PASSWORD: password
+
 volumes:
   postgres_data:
