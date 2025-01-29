@@ -11,8 +11,8 @@ INSERT INTO profiles (id_profile, id_user, email, name, phone,  picture) VALUES 
 INSERT INTO profiles (id_profile, id_user, email, name, phone,  picture) VALUES (default, 2, 'email2@msc.com','profile2', 'phone2', 'picture2');
 
 /* Roles Users */
-INSERT INTO roles_users (role_id, user_id) VALUES (1, 1);
-INSERT INTO roles_users (role_id, user_id) VALUES (2, 2);
+INSERT INTO roles_users (id_role, id_user) VALUES (1, 1);
+INSERT INTO roles_users (id_role, id_user) VALUES (2, 2);
 
 /* Airports */
 INSERT INTO airports (id_airport, city, country, name) VALUES (default, 'City1', 'Country1', 'Airport1');
