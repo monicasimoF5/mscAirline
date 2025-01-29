@@ -11,7 +11,7 @@
 Welcome to the MSC airline project!  This is a Spring Boot backend application designed to manage **airports**, **flights**, **reservations**, **users** and user **profiles** through CRUD operations..
 
 ---
-## Funcionalidades
+## 🎯 **Project objectives:**
 
 - **Vuelos disponibles** ✈️
 - **Estado de los vuelos** 🛫🛬

@@ -7,7 +7,6 @@ import org.mockito.Mock;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
