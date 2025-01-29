@@ -34,5 +34,5 @@ jobs:
         run: mvn clean compile
 
       - name: Run Tests
-        run: mvn test
+        run: mvn -X test
 
