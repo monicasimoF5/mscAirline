@@ -1,11 +1,14 @@
 
 # **MSC airline** 🏢  🛫🛬
 
-
-Welcome to the MSC airline project!  This project manages airports, flights, reservations, users and user profiles.
 ---
 
 ![CI](https://github.com/monicasimoF5/mscAirline/actions/workflows/ci.yml/badge.svg)
+
+---
+
+## 📝 **Introduction**
+Welcome to the MSC airline project!  This is a Spring Boot backend application designed to manage **airports**, **flights**, **reservations**, **users** and user **profiles** through CRUD operations..
 
 ---
 ## Funcionalidades
