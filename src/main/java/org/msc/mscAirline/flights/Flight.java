@@ -38,7 +38,6 @@ public class Flight {
     @Temporal(TemporalType.TIMESTAMP)
     private Date seatsBlockedUntil;
 
-
     public Date getSeatsBlockedUntil() {
         return seatsBlockedUntil;
     }
@@ -130,11 +129,12 @@ public class Flight {
             throw new IllegalArgumentException("Insufficient number of seats to reserve.");
         }
 
-        if (this.availableSeats != 0) {
-            this.statusFlight = true;
+        this.availableSeats -= seats;
+
+        if (this.availableSeats == 0) {
+            this.statusFlight = false;
         }
 
-        this.availableSeats -= seats;
     }
 
 }
