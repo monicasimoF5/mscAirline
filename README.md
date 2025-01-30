@@ -1,5 +1,5 @@
 
-# **MSC airline** 🏢  🛫🛬
+# **MSC Airline** 🏢  🛫🛬
 
 ---
 
@@ -8,7 +8,7 @@
 ---
 
 ## 📝 **Introduction**
-Welcome to the MSC airline project! This is a Spring Boot backend application designed to manage **airports**, **flights**, **reservations**, **users**, and user **profiles** through CRUD operations. The system allows you to manage flight details, make reservations, track seat availability, and interact with user profiles. This application can be used as a part of a larger airline management system.
+Welcome to the MSC Airline project! This is a Spring Boot backend application designed to manage **airports**, **flights**, **reservations**, **users**, and user **profiles** through CRUD operations. The system allows you to manage flight details, make reservations, track seat availability, and interact with user profiles. This application can be used as a part of a larger airline management system.
 
 ---
 ## 🎯 **Project objectives:**
@@ -177,7 +177,7 @@ Welcome to the MSC airline project! This is a Spring Boot backend application de
 To get started with the project, first clone the repository:
 
 bash
-git clone https://github.com/yourusername/msc-airline.git
+git clone https://github.com/monicasimoF5/mscAirline.git
 cd msc-airline
 
 ---
@@ -222,6 +222,7 @@ cd msc-airline
 - **PUT /api/v1/airports/{id}**: Update airport information.
 - **DELETE /api/v1/airports/{id}**: Delete an airport.
 
+---
 
 ## 🌐 Author
 
