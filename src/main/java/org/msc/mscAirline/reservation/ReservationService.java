@@ -1,6 +1,5 @@
 package org.msc.mscAirline.reservation;
 
-import jakarta.transaction.Transactional;
 import org.msc.mscAirline.exceptions.AirlineNotFoundException;
 import org.msc.mscAirline.flights.Flight;
 import org.msc.mscAirline.flights.FlightRepository;
@@ -23,7 +22,6 @@ public class ReservationService {
         this.flightRepository = flightRepository;
     }
 
-    @Transactional
     public ReservationResponse createReservation(ReservationRequest reservationRequest){
         Optional<User> optionalUser = userRepository.findUserById(reservationRequest.userId());
         Optional<Flight> optionalFlight = flightRepository.findById(reservationRequest.flightId());
@@ -65,7 +63,6 @@ public class ReservationService {
         flightRepository.save(flight);
         return ReservationMapper.toResponse(savedReservation);
     }
-
 
     public List<ReservationResponse> findAllReservations(){
         List<Reservation> reservationList = reservationRepository.findAll();
@@ -143,7 +140,6 @@ public class ReservationService {
         return ReservationMapper.toResponse(updatedReservation);
     }
 
-    //@Transactional
     public void deleteReservation(Long reservationId) {
         Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
 
