@@ -1,6 +1,8 @@
 package org.msc.mscAirline.exceptions;
 
+import org.msc.mscAirline.airports.AirportValidationException;
 import org.msc.mscAirline.flights.FlightValidationException;
+import org.msc.mscAirline.profiles.ProfileValidationExcepcion;
 import org.msc.mscAirline.reservation.ReservationValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +49,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ReservationValidationException.class)
     public ResponseEntity<Map<String, String>> handleReservationValidationException(ReservationValidationException exception){
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", exception.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(AirportValidationException.class)
+    public ResponseEntity<Map<String, String>> handleAirportValidationException(AirportValidationException exception){
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", exception.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ProfileValidationExcepcion.class)
+    public ResponseEntity<Map<String, String>> handleProfileValidationException(ProfileValidationExcepcion exception){
         Map<String, String> errors = new HashMap<>();
         errors.put("error", exception.getMessage());
         return new ResponseEntity<>(errors, HttpStatus.CONFLICT);

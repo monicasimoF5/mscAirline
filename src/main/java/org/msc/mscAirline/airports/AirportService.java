@@ -69,13 +69,13 @@ public class AirportService {
         throw new AirlineNotFoundException("The airport with id " + id + " does not exist.");
     }
 
-    public void deleteAirportById(Long id){
-        Optional<Airport> optionalAirport = airportRepository.findById(id);
+    public void deleteAirportById(Long airportId){
+        Optional<Airport> optionalAirport = airportRepository.findById(airportId);
 
         if (optionalAirport.isEmpty()){
-            throw new AirlineNotFoundException("The airport with id " + id + " does not exist.");
+            throw new AirlineNotFoundException("The airport with id " + airportId + " does not exist.");
         }
-        airportRepository.deleteById(id);
+        airportRepository.deleteById(airportId);
     }
 
 }

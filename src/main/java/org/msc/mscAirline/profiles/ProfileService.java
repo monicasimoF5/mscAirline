@@ -71,13 +71,14 @@ public class ProfileService {
         }
 
         Profile profile = optionalProfile.get();
+
         profile.setName(profileRequest.name());
         profile.setPhone(profileRequest.phone());
         profile.setEmail(profileRequest.email());
         profile.setPicture(profileRequest.picture());
-        profileRepository.save(profile);
 
-        return ProfileMapper.toResponse(profile);
+        Profile updatedProfile = profileRepository.save(profile);
+        return ProfileMapper.toResponse(updatedProfile);
     }
 
 }

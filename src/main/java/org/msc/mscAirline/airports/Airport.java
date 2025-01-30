@@ -24,13 +24,7 @@ public class Airport {
         this.country = country;
     }
 
-    public Airport(long airportId,
-
-            String name,
-
-            String city,
-
-            String country) {
+    public Airport(long airportId, String name, String city, String country) {
         this.airportId = airportId;
         this.name = name;
         this.city = city;

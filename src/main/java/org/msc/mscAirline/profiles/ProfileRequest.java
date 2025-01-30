@@ -9,8 +9,8 @@ public record ProfileRequest(
         String name,
 
         @NotBlank
-        @Size(min = 9, max = 9, message = "The phone must be have 9 digits" )
-        @Pattern(regexp = "^\\d{9}$", message = "The Phone must be have 9 digits")
+        @Size(min = 9, max = 9, message = "The phone must be have 9 digits." )
+        @Pattern(regexp = "^\\d{9}$", message = "The Phone must be have 9 digits.")
         String phone,
 
         @NotNull
@@ -20,7 +20,7 @@ public record ProfileRequest(
 
         String picture,
 
-        @NotNull(message = "The profile ID cannot be null")
+        @NotNull(message = "The user ID cannot be null.")
         Long userId
 
 ) {

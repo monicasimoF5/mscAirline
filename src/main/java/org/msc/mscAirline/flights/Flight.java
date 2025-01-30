@@ -5,6 +5,7 @@ import lombok.*;
 import org.msc.mscAirline.airports.Airport;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "flights")
@@ -33,6 +34,18 @@ public class Flight {
     Airport destination;
 
     private boolean statusFlight;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date seatsBlockedUntil;
+
+
+    public Date getSeatsBlockedUntil() {
+        return seatsBlockedUntil;
+    }
+
+    public void setSeatsBlockedUntil(Date seatsBlockedUntil) {
+        this.seatsBlockedUntil = seatsBlockedUntil;
+    }
 
     public Flight(String name, Airport origin, Airport destination, int availableSeats, LocalDateTime departureTime, LocalDateTime arrivalTime, boolean statusFlight) {
         this.name = name;
@@ -123,4 +136,5 @@ public class Flight {
 
         this.availableSeats -= seats;
     }
+
 }

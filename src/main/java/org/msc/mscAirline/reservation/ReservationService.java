@@ -7,10 +7,7 @@ import org.msc.mscAirline.users.User;
 import org.msc.mscAirline.users.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReservationService {
@@ -38,6 +35,13 @@ public class ReservationService {
         }
 
         Flight flight = optionalFlight.get();
+
+        if (isSeatsLocked(flight.getFlightId())) {
+            throw new ReservationValidationException("The seats for this flight are temporarily blocked. Please try again later.");
+        }
+
+        blockSeatsForReservation(flight.getFlightId(), reservationRequest.seats());
+
         if (reservationRequest.seats() > flight.getAvailableSeats()){
             throw new ReservationValidationException("We're sorry, we don't have enough free seats for this flight.");
         }
@@ -108,6 +112,10 @@ public class ReservationService {
 
         Flight flight = optionalFlight.get();
 
+        if (flight.getSeatsBlockedUntil() != null && flight.getSeatsBlockedUntil().after(new Date())) {
+            throw new IllegalArgumentException("The flight seats are currently blocked for a reservation. Please wait for the block to expire.");
+        }
+
         int previousSeats = reservation.getSeats();
         int newSeats = reservationRequest.seats();
         int seatDifference = newSeats - previousSeats;
@@ -125,11 +133,7 @@ public class ReservationService {
             flight.setAvailableSeats(availableSeats - seatDifference);
         }
 
-        if (flight.getAvailableSeats() == 0) {
-            flight.setStatusFlight(false);
-        } else {
-            flight.setStatusFlight(true);
-        }
+        flight.setStatusFlight(flight.getAvailableSeats() != 0);
 
         flightRepository.save(flight);
         Reservation updatedReservation = reservationRepository.save(reservation);
@@ -158,5 +162,37 @@ public class ReservationService {
         reservationRepository.deleteById(reservationId);
     }
 
+    public void blockSeatsForReservation(Long flightId, int seats) {
+        Optional<Flight> optionalFlight = flightRepository.findById(flightId);
+
+        if (optionalFlight.isEmpty()) {
+            throw new AirlineNotFoundException("Flight not found.");
+        }
+
+        Flight flight = optionalFlight.get();
+
+        if (flight.getAvailableSeats() < seats) {
+            throw new ReservationValidationException("Not enough seats available.");
+        }
+
+        flight.setAvailableSeats(flight.getAvailableSeats() - seats);
+
+        Date blockUntil = new Date(System.currentTimeMillis() + 15 * 60 * 1000);
+        flight.setSeatsBlockedUntil(blockUntil);
+
+        flightRepository.save(flight);
+    }
+
+    public boolean isSeatsLocked(Long flightId) {
+        Optional<Flight> optionalFlight = flightRepository.findById(flightId);
+
+        if (optionalFlight.isEmpty()) {
+            throw new AirlineNotFoundException("Flight not found.");
+        }
+
+        Flight flight = optionalFlight.get();
+
+        return flight.getSeatsBlockedUntil() != null && flight.getSeatsBlockedUntil().after(new Date());
+    }
 
 }

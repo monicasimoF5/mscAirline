@@ -1,6 +1,8 @@
 package org.msc.mscAirline.register;
 
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
+import org.msc.mscAirline.profiles.Profile;
+import org.msc.mscAirline.profiles.ProfileService;
 import org.msc.mscAirline.roles.Role;
 import org.msc.mscAirline.roles.RoleService;
 import org.msc.mscAirline.users.User;
@@ -17,10 +19,12 @@ public class RegisterService {
 
     private final UserRepository userRepository;
     private final RoleService roleService;
+    private final ProfileService profileService;
 
-    public RegisterService(UserRepository userRepository, RoleService roleService) {
+    public RegisterService(UserRepository userRepository, RoleService roleService, ProfileService profileService) {
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.profileService = profileService;
     }
 
     public Map<String, String> save(UserRequest userRequest){
@@ -39,6 +43,14 @@ public class RegisterService {
 
         User newUser = new User(userRequest.username(), passwordEncoded);
         newUser.setRoles(roleService.assignDefaultRole(newUser.getId()));
+
+        Profile profile = new Profile();
+        profile.setUser(newUser);
+
+        String defaultPicture = "https://cdn.pixabay.com/photo/2021/07/02/04/48/user-6380868_640.png";
+        profile.setPicture(defaultPicture);
+
+        newUser.setProfile(profile);
 
         userRepository.save(newUser);
 

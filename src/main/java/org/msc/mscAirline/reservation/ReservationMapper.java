@@ -7,6 +7,8 @@ import org.msc.mscAirline.users.User;
 import org.msc.mscAirline.users.UserMapper;
 import org.msc.mscAirline.users.UserResponse;
 
+import java.util.Date;
+
 public class ReservationMapper {
     public static Reservation toEntity(ReservationRequest reservationRequest, Flight flight, User user) {
         return new Reservation(
@@ -20,11 +22,17 @@ public class ReservationMapper {
     public static ReservationResponse toResponse(Reservation reservation){
         FlightResponse flightResponse = FlightMapper.toResponse(reservation.getFlight());
         UserResponse userResponse = UserMapper.toResponse(reservation.getUser());
+
+        // Agregamos la fecha de bloqueo
+        Date seatsBlockedUntil = reservation.getFlight().getSeatsBlockedUntil(); // Tomamos la fecha del vuelo
+
+
         return new ReservationResponse(
                 reservation.getReservationId(),
                 reservation.getReservationTime(),
                 reservation.getSeats(),
                 flightResponse,
-                userResponse);
+                userResponse,
+                seatsBlockedUntil);
     }
 }

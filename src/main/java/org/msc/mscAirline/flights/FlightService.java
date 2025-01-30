@@ -138,7 +138,7 @@ public class FlightService {
     public void deleteFlightById (Long flightId) {
         Optional<Flight> existingFlight = flightRepository.findById(flightId);
 
-        if (!existingFlight.isPresent()) {
+        if (existingFlight.isEmpty()) {
             throw new AirlineNotFoundException("Flight with ID " + flightId + " not found.");
         }
 
