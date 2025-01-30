@@ -1,9 +1,7 @@
 package org.msc.mscAirline.profiles;
 
 import jakarta.validation.Valid;
-import org.msc.mscAirline.airports.AirportResponse;
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
-import org.msc.mscAirline.flights.FlightResponse;
 import org.msc.mscAirline.users.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

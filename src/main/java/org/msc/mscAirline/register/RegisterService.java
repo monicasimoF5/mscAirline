@@ -3,7 +3,6 @@ package org.msc.mscAirline.register;
 import org.msc.mscAirline.exceptions.AirlineAlreadyExistsException;
 import org.msc.mscAirline.profiles.Profile;
 import org.msc.mscAirline.profiles.ProfileService;
-import org.msc.mscAirline.roles.Role;
 import org.msc.mscAirline.roles.RoleService;
 import org.msc.mscAirline.users.User;
 import org.msc.mscAirline.users.UserRequest;

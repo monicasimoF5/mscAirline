@@ -20,12 +20,10 @@ public class ReservationMapper {
     }
 
     public static ReservationResponse toResponse(Reservation reservation){
+
         FlightResponse flightResponse = FlightMapper.toResponse(reservation.getFlight());
         UserResponse userResponse = UserMapper.toResponse(reservation.getUser());
-
-        // Agregamos la fecha de bloqueo
-        Date seatsBlockedUntil = reservation.getFlight().getSeatsBlockedUntil(); // Tomamos la fecha del vuelo
-
+        Date seatsBlockedUntil = reservation.getFlight().getSeatsBlockedUntil();
 
         return new ReservationResponse(
                 reservation.getReservationId(),

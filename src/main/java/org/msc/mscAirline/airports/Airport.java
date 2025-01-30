@@ -1,8 +1,6 @@
 package org.msc.mscAirline.airports;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "airports")

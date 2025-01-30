@@ -119,7 +119,7 @@ public class FlightService {
     public FlightResponse updateFlightById(@Valid Long flightId, FlightRequest flightRequest) {
         Optional<Flight> existingFlight = flightRepository.findById(flightId);
 
-        if (!existingFlight.isPresent()) {
+        if (existingFlight.isEmpty()) {
             throw new AirlineNotFoundException("Flight with ID " + flightId + " not found.");
         }
 

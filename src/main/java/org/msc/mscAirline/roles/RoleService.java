@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.msc.mscAirline.roles.exceptions.RoleNotFoundException;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
