@@ -13,10 +13,10 @@ Welcome to the MSC airline project!  This is a Spring Boot backend application d
 ---
 ## 🎯 **Project objectives:**
 
-- **Vuelos disponibles** ✈️
-- **Estado de los vuelos** 🛫🛬
-- **Gestión de pasajeros** 🛄
-- **Aeropuertos** 🏢
+- **Flights available** ✈️
+- **Flight status** 🛫🛬
+- **Passenger management** 🛄
+- **Airports** 🏢
 
 ---
 
