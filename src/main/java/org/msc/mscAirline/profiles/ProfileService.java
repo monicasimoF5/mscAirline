@@ -66,7 +66,7 @@ public class ProfileService {
     public ProfileResponse updateProfileById(Long profileId, @Valid ProfileRequest profileRequest) {
         Optional<Profile> optionalProfile = profileRepository.findById(profileId);
 
-        if (!optionalProfile.isPresent()) {
+        if (optionalProfile.isEmpty()) {
             throw new AirlineNotFoundException("The profile with id " + profileId + " does not exist.");
         }
 

@@ -15,7 +15,7 @@ public class Profile {
     private String email;
     private String picture;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id_user")
     private User user;
 

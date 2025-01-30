@@ -26,7 +26,7 @@ Welcome to the MSC airline project!  This is a Spring Boot backend application d
 ---
 
 ## 📦 **UML Diagram**
-![umlDiagram](https://lucid.app/lucidchart/9a240930-10c5-455e-b066-3a4d9cb3a8f0/edit?viewport_loc=-7962%2C-69%2C10400%2C5088%2C0_0&invitationId=inv_d23c5ec9-00ee-43da-b4ac-d10bf406c21b)
+![UMLdiagram.jpg](utils/UMLdiagram.jpg)
 
 ---
 
