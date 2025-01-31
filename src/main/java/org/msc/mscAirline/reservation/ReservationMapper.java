@@ -23,14 +23,14 @@ public class ReservationMapper {
 
         FlightResponse flightResponse = FlightMapper.toResponse(reservation.getFlight());
         UserResponse userResponse = UserMapper.toResponse(reservation.getUser());
-        //Date seatsBlockedUntil = reservation.getFlight().getSeatsBlockedUntil();
+        Date seatsBlockedUntil = reservation.getFlight().getSeatsBlockedUntil();
 
         return new ReservationResponse(
                 reservation.getReservationId(),
                 reservation.getReservationTime(),
                 reservation.getSeats(),
                 flightResponse,
-                userResponse);
-                //seatsBlockedUntil);
+                userResponse,
+                seatsBlockedUntil);
     }
 }

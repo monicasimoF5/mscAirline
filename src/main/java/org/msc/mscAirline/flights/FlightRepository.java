@@ -24,7 +24,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
             @Param("originCity") String originCity,
             @Param("destinationCity") String destinationCity,
             @Param("departureDate") LocalDate departureDate,
-            @Param("availableSeats") int availableSeats);
+            @Param("availableSeats") Integer availableSeats);
 
 
     List<Flight> findByOriginAndDestinationAndDepartureTime(Airport origin, Airport destination, LocalDateTime departureTime);
