@@ -36,11 +36,11 @@ public class ReservationService {
 
         Flight flight = optionalFlight.get();
 
-        if (isSeatsLocked(flight.getFlightId())) {
+        /*if (isSeatsLocked(flight.getFlightId())) {
             throw new ReservationValidationException("The seats for this flight are temporarily blocked. Please try again later.");
         }
 
-        blockSeatsForReservation(flight.getFlightId(), reservationRequest.seats());
+        blockSeatsForReservation(flight.getFlightId(), reservationRequest.seats());*/
 
         if (reservationRequest.seats() > flight.getAvailableSeats()){
             throw new ReservationValidationException("We're sorry, we don't have enough free seats for this flight.");
@@ -111,9 +111,9 @@ public class ReservationService {
 
         Flight flight = optionalFlight.get();
 
-        if (flight.getSeatsBlockedUntil() != null && flight.getSeatsBlockedUntil().after(new Date())) {
+        /*if (flight.getSeatsBlockedUntil() != null && flight.getSeatsBlockedUntil().after(new Date())) {
             throw new IllegalArgumentException("The flight seats are currently blocked for a reservation. Please wait for the block to expire.");
-        }
+        }*/
 
         int previousSeats = reservation.getSeats();
         int newSeats = reservationRequest.seats();
@@ -161,7 +161,7 @@ public class ReservationService {
         reservationRepository.deleteById(reservationId);
     }
 
-    public void blockSeatsForReservation(Long flightId, int seats) {
+    /*public void blockSeatsForReservation(Long flightId, int seats) {
         Optional<Flight> optionalFlight = flightRepository.findById(flightId);
 
         if (optionalFlight.isEmpty()) {
@@ -180,9 +180,9 @@ public class ReservationService {
         flight.setSeatsBlockedUntil(blockUntil);
 
         flightRepository.save(flight);
-    }
+    }*/
 
-    public boolean isSeatsLocked(Long flightId) {
+    /*public boolean isSeatsLocked(Long flightId) {
         Optional<Flight> optionalFlight = flightRepository.findById(flightId);
 
         if (optionalFlight.isEmpty()) {
@@ -192,6 +192,6 @@ public class ReservationService {
         Flight flight = optionalFlight.get();
 
         return flight.getSeatsBlockedUntil() != null && flight.getSeatsBlockedUntil().after(new Date());
-    }
+    }*/
 
 }

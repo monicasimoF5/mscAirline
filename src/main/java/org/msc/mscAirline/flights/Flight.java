@@ -35,7 +35,7 @@ public class Flight {
 
     private boolean statusFlight;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    /*@Temporal(TemporalType.TIMESTAMP)
     private Date seatsBlockedUntil;
 
     public Date getSeatsBlockedUntil() {
@@ -44,7 +44,7 @@ public class Flight {
 
     public void setSeatsBlockedUntil(Date seatsBlockedUntil) {
         this.seatsBlockedUntil = seatsBlockedUntil;
-    }
+    }*/
 
     public Flight(String name, Airport origin, Airport destination, int availableSeats, LocalDateTime departureTime, LocalDateTime arrivalTime, boolean statusFlight) {
         this.name = name;

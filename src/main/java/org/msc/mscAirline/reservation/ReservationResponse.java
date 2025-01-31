@@ -10,7 +10,7 @@ public record ReservationResponse(
         Date reservationTime,
         int seats,
         FlightResponse flight,
-        UserResponse user,
-        Date seatsBlockedUntil // Fecha hasta que los asientos estén bloqueados
+        UserResponse user
+        //Date seatsBlockedUntil
 ) {
 }
